@@ -3,6 +3,7 @@ import ReactMapboxGl from "react-mapbox-gl";
 import _ from "lodash";
 import MapboxGl from "mapbox-gl";
 import { ReactMapboxGlCluster } from "./node_modules";
+import { data } from "./data";
 import "./App.css";
 
 const Map = ReactMapboxGl({
@@ -10,6 +11,7 @@ const Map = ReactMapboxGl({
 });
 
 const mapProps = {
+  center: [103.8198, 1.3521],
   style: "mapbox://styles/mapbox/streets-v8"
 };
 
@@ -99,14 +101,7 @@ class App extends Component {
     return (
       <div className="App">
         <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
-          <ReactMapboxGlCluster
-            coordinates={[-0.2268, 51.5361]}
-            {...this.getEventHandlers()}
-          >
-            {this.state.data.map((n, index) =>
-              this.renderSpiderifierContent(index, n)
-            )}
-          </ReactMapboxGlCluster>
+          <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} />
         </Map>
       </div>
     );
