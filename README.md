@@ -1,4 +1,6 @@
 # react-mapbox-gl-cluster
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/LICENSE)
+[![npm downloads](https://img.shields.io/npm/dm/react-mapbox-gl-cluster.svg)](https://www.npmjs.com/package/react-mapbox-gl-cluster)
 
 The `React` component of cluster layer in `mapbox-gl`.
 
