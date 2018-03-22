@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import ReactMapboxGl from "react-mapbox-gl";
-import _ from "lodash";
-import MapboxGl from "mapbox-gl";
 import { ReactMapboxGlCluster } from "./node_modules";
 import { data } from "./data";
 import "./App.css";
@@ -11,25 +9,17 @@ const Map = ReactMapboxGl({
 });
 
 const mapProps = {
-  center: [103.8198, 1.3521],
+  center: [-95.7129, 37.0902],
+  zoom: [3],
   style: "mapbox://styles/mapbox/streets-v8"
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: this.getRandomData()
-    };
-  }
-
   getEventHandlers() {
     return {
       onClick: (properties, coords, offset) =>
-        this.renderPopup(properties, coords, offset),
-      onMouseDown: (properties, coords, offset) =>
         console.log(
-          `Receive event onMouseDown at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+          `Receive event onClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`
         ),
       onMouseEnter: (properties, coords, offset) =>
         console.log(
@@ -39,62 +29,19 @@ class App extends Component {
         console.log(
           `Receive event onMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
         ),
-      onMouseMove: (properties, coords, offset) =>
+      onClusterClick: (properties, coords, offset) =>
         console.log(
-          `Receive event onMouseMove at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+          `Receive event onClusterClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`
         ),
-      onMouseOut: (properties, coords, offset) =>
+      onClusterMouseEnter: (properties, coords, offset) =>
         console.log(
-          `Receive event onMouseOut at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+          `Receive event onClusterMouseEnter at properties: ${properties}, coords: ${coords}, offset: ${offset}`
         ),
-      onMouseOver: (properties, coords, offset) =>
+      onClusterMouseLeave: (properties, coords, offset) =>
         console.log(
-          `Receive event onMouseOver at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+          `Receive event onClusterMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
         ),
-      onMouseUp: (properties, coords, offset) =>
-        console.log(
-          `Receive event at onMouseUp properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        )
     };
-  }
-
-  getRandomData() {
-    const n = this.randomNumber(5, 30);
-    console.log(`Rendering new spiral with ${n} elements`);
-    return _.times(n, index => this.randomNumber(100, 10000));
-  }
-
-  onStyleLoad = map => {
-    this.map = map;
-  };
-
-  randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  renderPopup(properties, coordinates, offset) {
-    if (this.currentPopup) {
-      this.currentPopup.remove();
-    }
-
-    setTimeout(() => {
-      this.currentPopup = new MapboxGl.Popup({ offset })
-        .setLngLat(coordinates)
-        .setHTML(`Some description for node ${properties.value}`)
-        .addTo(this.map);
-    });
-  }
-
-  renderSpiderifierContent(key, value) {
-    return (
-      <div
-        className="spiderifier-marker-content"
-        key={key}
-        properties={{ value }}
-      >
-        <div>{value}</div>
-      </div>
-    );
   }
 
   render() {

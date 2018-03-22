@@ -1,70 +1,61 @@
-# react-mapboxgl-spiderifier
+# react-mapbox-gl-cluster
 
-Rendering the spiderifier into `react-mapbox-gl` as `React` component.
+The `React` component of cluster layer in `mapbox-gl`.
 
-Spiral/Circle positioning logic taken from and credits goes to https://github.com/jawj/OverlappingMarkerSpiderfier.
+The cluster layer has some build-in actions as zoom in when click on a cluster or show spiderifier if clicked cluster contains the points at same location.
+
+This layer must be rendered inside `react-mapbox-gl` map.
 
 ## Examples:
 
 * https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/src/App.js
 
-![Demo Spiderifier.](./demo/demo.gif)
+![Demo Cluster.](./demo/demo.gif)
 
-## Usage:
-
-#### Simple spiderfication
-
-Please note that the `ReactMapboxGlSpiderifier` should be used together with the `React` wrapper of `mapbox-gl` e.g. `react-mapbox-gl`.
+Please note that the `ReactMapboxGlCluster` should be used together with the `React` wrapper of `mapbox-gl` e.g. `react-mapbox-gl`.
 https://github.com/alex3165/react-mapbox-gl
 
 ```js
-import ReactMapboxGl from 'react-mapbox-gl';
-import { ReactMapboxGlSpiderifier } from 'react-mapbox-gl-cluster';
+import React, { Component } from "react";
+import ReactMapboxGl from "react-mapbox-gl";
+import { ReactMapboxGlCluster } from "react-mapbox-gl-cluster";
+import { data } from "./data";
 
 const Map = ReactMapboxGl({
-  accessToken: '...',
+  accessToken: process.env.MAPBOX_GL_TOKEN
 });
 
 const mapProps = {
-  style: 'mapbox://styles/mapbox/streets-v8',
+  center: [-95.7129, 37.0902],
+  zoom: [3],
+  style: "mapbox://styles/mapbox/streets-v8"
 };
 
 class App extends Component {
-  onStyleLoad = (map) => {
-    this.map = map;
-  };
-
-  renderPopup(properties, coordinates, offset) {
-    if (this.currentPopup) {
-      this.currentPopup.remove();
-    }
-
-    setTimeout(() => {
-      this.currentPopup = new MapboxGl.Popup({ offset })
-        .setLngLat(coordinates)
-        .setHTML(`Some description for node ${properties.value}`)
-        .addTo(this.map);
-    });
-  }
-
-  renderSpiderifierContent(key, value) {
-    return (
-      <div className="spiderifier-marker-content" key={key} properties={{ value }}>
-        <div>{value}</div>
-      </div>
-    )
+  getEventHandlers() {
+    return {
+      onClick: (properties, coords, offset) =>
+        this.renderPopup(properties, coords, offset),
+      onMouseEnter: (properties, coords, offset) =>
+        console.log(
+          `Receive event onMouseEnter at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+        ),
+      onMouseLeave: (properties, coords, offset) =>
+        console.log(
+          `Receive event onMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+        ),
+      onClusterClick: (properties, coords, offset) =>
+        console.log(
+          `Receive event onClusterClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`
+        ),
+    };
   }
 
   render() {
     return (
       <div className="App">
         <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
-          <ReactMapboxGlSpiderifier
-            coordinates={[-0.2268, 51.5361]}
-            onClick={(properties, coords, offset) => this.renderPopup(properties, coords, offset)}
-           >
-            {[100, 200, 300, 400, 500].((n, index) => this.renderSpiderifierContent(index, n))}
-          </ReactMapboxGlSpiderifier>
+          <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} />
         </Map>
       </div>
     );
@@ -76,63 +67,51 @@ class App extends Component {
 
 #### Properties
 
-* `coordinates ([number, number])`
-  Display the Spiderifier at the given position
+* `data (object)`
+  Data source for layer. It must to follow FeatureCollection geojson format
 
-* `circleSpiralSwitchover (number)`
-  Show spiral instead of circle from this marker count upwards, 0 -> always spiral; Infinity -> always circle
+* `radius (number)`
+  [Optional] Cluster radius, in pixels.
 
-* `circleFootSeparation (number)`
-  Related to circumference of circle
+* `minZoom (number)`
+  [Optional] Minimum zoom level at which clusters are generated.
 
-* `spiralFootSeparation (number)`
-  Related to size of spiral
+* `maxZoom (number)`
+  [Optional] Maximum zoom level at which clusters are generated.
 
-* `spiralLengthStart (number)`
-  Related to size of spiral
+* `extent (number)`
+  [Optional] (Tiles) Tile extent. Radius is calculated relative to this value.
 
-* `spiralLengthFactor (number)`
-  Related to size of spiral
+* `nodeSize (number)`
+  [Optional] Size of the KD-tree leaf node. Affects performance.
 
-* `animate (bool)`
-  To enable animate the spiral
+* `pointClassName (string)`
+  [Optional] The class name of each point.
 
-* `animationSpeed (number)`
-  Animation speed in milliseconds
+* `pointStyles (object)`
+  [Optional] The class name of each cluster.
 
-* `transformSpiderLeft (number)`
-  The margin in left side of each spider
-
-* `transformSpiderTop (number)`
-  The margin in top of each spider
-
-* `showingLegs (bool)`
-  Indicate if the legs should be shown even when the spiderifier only have one spider element
+* `clusterClassName (string)`
+  [Optional] The class name of each cluster.
 
 #### Events
 
 * `onClick (function)`
-  The click event handler
-
-* `onMouseDown (function)`
-  The mouse down event handler
+  [Optional] Handler for when user on marker
 
 * `onMouseEnter (function)`
-  The mouse enter event handler
+  [Optional] Handle when user move the mouse enter a point
 
 * `onMouseLeave (function)`
-  The mouse leave event handler
+  [Optional] Handle when user move the mouse leave a point
 
-* `onMouseMove (function)`
-  The mouse move event handler
+* `onClusterClick (function)`
+  [Optional] Handle when user click on cluster
 
-* `onMouseOut (function)`
-  The mouse out event handler
+* `onClusterMouseEnter (function)`
+  [Optional] Handle when user move the mouse enter a cluster
 
-* `onMouseOver (function)`
-  The mouse over event handler
-
-* `onMouseUp (function)`
-  The mouse up event handler
+* `onClusterMouseLeave (function)`
+  [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
