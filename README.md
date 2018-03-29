@@ -1,10 +1,14 @@
 # react-mapbox-gl-cluster
+
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/react-mapbox-gl-cluster.svg)](https://www.npmjs.com/package/react-mapbox-gl-cluster)
 
 The `React` component of cluster layer in `mapbox-gl`.
 
-The cluster layer has some build-in actions as zoom in when click on a cluster or show spiderifier if clicked cluster contains the points at same location.
+The cluster layer has some build-in actions:
+
+1.  Zoom in when click on a cluster.
+2.  Show spiderifier when clicked on a cluster which contains the points at same location.
 
 This layer must be rendered inside `react-mapbox-gl` map.
 
@@ -49,7 +53,7 @@ class App extends Component {
       onClusterClick: (properties, coords, offset) =>
         console.log(
           `Receive event onClusterClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        ),
+        )
     };
   }
 
@@ -82,7 +86,7 @@ class App extends Component {
   [Optional] Maximum zoom level at which clusters are generated.
 
 * `extent (number)`
-  [Optional] (Tiles) Tile extent. Radius is calculated relative to this value.
+  [Optional](Tiles) Tile extent. Radius is calculated relative to this value.
 
 * `nodeSize (number)`
   [Optional] Size of the KD-tree leaf node. Affects performance.
