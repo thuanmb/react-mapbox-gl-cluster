@@ -121,3 +121,7 @@ class App extends Component {
   [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
+
+### 0.1.7
+
+* Fix JS error when click on a marker
