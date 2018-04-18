@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ReactMapboxGlCluster } from "./modules";
+import { data } from "./data";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+it("renders without crashing", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<ReactMapboxGlCluster data={data} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
