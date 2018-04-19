@@ -1,3 +1,5 @@
+jest.mock("mapbox-gl");
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { ReactMapboxGlCluster } from "./modules";
