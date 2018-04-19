@@ -7,12 +7,20 @@ class OverridedCluster extends Cluster {
       super.componentWillUnmount();
     }
 
+    if (!map) {
+      return;
+    }
+
     const map = this.context.map;
     map.off("zoom", this.mapChange);
   }
 
   componentWillMount() {
     const { map } = this.context;
+    if (!map) {
+      return;
+    }
+
     const { children } = this.props;
     if (children) {
       this.childrenChange(children);

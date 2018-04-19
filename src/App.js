@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactMapboxGl from "react-mapbox-gl";
-import { ReactMapboxGlCluster } from "./node_modules";
+import { ReactMapboxGlCluster } from "./modules";
 import { data } from "./data";
 import "./App.css";
 
@@ -40,7 +40,7 @@ class App extends Component {
       onClusterMouseLeave: (properties, coords, offset) =>
         console.log(
           `Receive event onClusterMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        ),
+        )
     };
   }
 
