@@ -14,7 +14,7 @@ This layer must be rendered inside `react-mapbox-gl` map.
 
 ## Examples:
 
-* https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/src/App.js
+- https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/src/App.js
 
 ![Demo Cluster.](./demo/demo.gif)
 
@@ -73,55 +73,59 @@ class App extends Component {
 
 #### Properties
 
-* `data (object)`
+- `data (object)`
   Data source for layer. It must to follow FeatureCollection geojson format
 
-* `radius (number)`
+- `radius (number)`
   [Optional] Cluster radius, in pixels.
 
-* `minZoom (number)`
+- `minZoom (number)`
   [Optional] Minimum zoom level at which clusters are generated.
 
-* `maxZoom (number)`
+- `maxZoom (number)`
   [Optional] Maximum zoom level at which clusters are generated.
 
-* `extent (number)`
+- `extent (number)`
   [Optional](Tiles) Tile extent. Radius is calculated relative to this value.
 
-* `nodeSize (number)`
+- `nodeSize (number)`
   [Optional] Size of the KD-tree leaf node. Affects performance.
 
-* `pointClassName (string)`
+- `pointClassName (string)`
   [Optional] The class name of each point.
 
-* `pointStyles (object)`
+- `pointStyles (object)`
   [Optional] The class name of each cluster.
 
-* `clusterClassName (string)`
+- `clusterClassName (string)`
   [Optional] The class name of each cluster.
 
 #### Events
 
-* `onClick (function)`
+- `onClick (function)`
   [Optional] Handler for when user on marker
 
-* `onMouseEnter (function)`
+- `onMouseEnter (function)`
   [Optional] Handle when user move the mouse enter a point
 
-* `onMouseLeave (function)`
+- `onMouseLeave (function)`
   [Optional] Handle when user move the mouse leave a point
 
-* `onClusterClick (function)`
+- `onClusterClick (function)`
   [Optional] Handle when user click on cluster
 
-* `onClusterMouseEnter (function)`
+- `onClusterMouseEnter (function)`
   [Optional] Handle when user move the mouse enter a cluster
 
-* `onClusterMouseLeave (function)`
+- `onClusterMouseLeave (function)`
   [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
 
 ### 0.1.7
 
-* Fix JS error when click on a marker
+- Fix JS error when click on a marker
+
+### 0.2.0 [BREAKING CHANGES]
+
+- Upgrade all packages to latest version. These packages include: `react`, `mapbox-gl`, `react-mapbox-gl`, `react-mapbox-gl-spiderifier`...

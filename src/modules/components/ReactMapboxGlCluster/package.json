@@ -1,5 +1,0 @@
-{
-  "private": true,
-  "name": "cluster-layer",
-  "main": "./index.js"
-}

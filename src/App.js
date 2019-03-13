@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ReactMapboxGl from "react-mapbox-gl";
-import { ReactMapboxGlCluster } from "./modules";
+import { ReactMapboxGlCluster } from "./lib";
 import { data } from "./data";
 import "./App.css";
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.MAPBOX_GL_TOKEN
+  accessToken: process.env.REACT_APP_MAPBOX_GL_TOKEN
 });
 
 const mapProps = {
