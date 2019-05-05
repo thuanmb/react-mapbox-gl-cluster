@@ -1,9 +1,9 @@
-import _objectSpread from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/objectSpread";
-import _classCallCheck from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
-import _inherits from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/inherits";
+import _objectSpread from "@babel/runtime/helpers/esm/objectSpread";
+import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
+import _createClass from "@babel/runtime/helpers/esm/createClass";
+import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
+import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
+import _inherits from "@babel/runtime/helpers/esm/inherits";
 import React, { PureComponent } from "react";
 import classnames from "classnames";
 import { getCoord } from "@turf/invariant";
