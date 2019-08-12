@@ -116,7 +116,7 @@ class App extends Component {
 
 ## ChangeLog:
 
-### 1.0.1
+### 1.0.0
 
 - Upgrading depedencies to latest version.
 
