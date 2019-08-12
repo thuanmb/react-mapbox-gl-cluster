@@ -116,10 +116,14 @@ class App extends Component {
 
 ## ChangeLog:
 
-### 0.1.7
+### 1.0.1
 
-- Fix JS error when click on a marker
+- Upgrading depedencies to latest version.
 
 ### 0.2.0 [BREAKING CHANGES]
 
 - Upgrade all packages to latest version. These packages include: `react`, `mapbox-gl`, `react-mapbox-gl`, `react-mapbox-gl-spiderifier`...
+
+### 0.1.7
+
+- Fix JS error when click on a marker
