@@ -1,10 +1,15 @@
-import _objectSpread from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/objectSpread";
+import _defineProperty from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/defineProperty";
 import _toConsumableArray from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/toConsumableArray";
 import _classCallCheck from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/createClass";
 import _possibleConstructorReturn from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
 import _getPrototypeOf from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "/Users/thuanbui/source_code/react-mapbox-gl-cluster/node_modules/@babel/runtime/helpers/esm/inherits";
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
@@ -305,7 +310,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     return props !== "markers" && props !== "coordinates";
   });
 
-  ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, spiderifierPropTypes, {
+  ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, {}, spiderifierPropTypes, {
     /**
      * Indicate if the spiderifier should be shown for the first overlapped point onload
      */
@@ -332,7 +337,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
      */
     onSpiderifierRemoved: PropTypes.func
   });
-  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, ReactMapboxGlSpiderifier.defaultProps);
+  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, {}, ReactMapboxGlSpiderifier.defaultProps);
   return ConnectedWithSpiderifierComponent;
 };
 

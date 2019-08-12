@@ -22,38 +22,32 @@ Please note that the `ReactMapboxGlCluster` should be used together with the `Re
 https://github.com/alex3165/react-mapbox-gl
 
 ```js
-import React, { Component } from "react";
-import ReactMapboxGl from "react-mapbox-gl";
-import { ReactMapboxGlCluster } from "react-mapbox-gl-cluster";
-import { data } from "./data";
+import React, {Component} from 'react';
+import ReactMapboxGl from 'react-mapbox-gl';
+import {ReactMapboxGlCluster} from 'react-mapbox-gl-cluster';
+import {data} from './data';
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.MAPBOX_GL_TOKEN
+  accessToken: process.env.MAPBOX_GL_TOKEN,
 });
 
 const mapProps = {
   center: [-95.7129, 37.0902],
   zoom: [3],
-  style: "mapbox://styles/mapbox/streets-v8"
+  style: 'mapbox://styles/mapbox/streets-v8',
 };
 
 class App extends Component {
   getEventHandlers() {
     return {
       onClick: (properties, coords, offset) =>
-        this.renderPopup(properties, coords, offset),
+        console.log(`Receive event onClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`),
       onMouseEnter: (properties, coords, offset) =>
-        console.log(
-          `Receive event onMouseEnter at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        ),
+        console.log(`Receive event onMouseEnter at properties: ${properties}, coords: ${coords}, offset: ${offset}`),
       onMouseLeave: (properties, coords, offset) =>
-        console.log(
-          `Receive event onMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        ),
+        console.log(`Receive event onMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`),
       onClusterClick: (properties, coords, offset) =>
-        console.log(
-          `Receive event onClusterClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-        )
+        console.log(`Receive event onClusterClick at properties: ${properties}, coords: ${coords}, offset: ${offset}`),
     };
   }
 
