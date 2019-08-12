@@ -1,9 +1,12 @@
 {
   "name": "react-mapbox-gl-cluster",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
@@ -35,5 +38,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
