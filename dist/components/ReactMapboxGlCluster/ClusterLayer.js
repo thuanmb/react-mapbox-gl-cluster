@@ -4,6 +4,7 @@ import _createClass from "@babel/runtime/helpers/esm/createClass";
 import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
+
 import React, { PureComponent } from "react";
 import classnames from "classnames";
 import { getCoord } from "@turf/invariant";
@@ -96,7 +97,7 @@ function (_PureComponent) {
         var style = properties.style;
         var eventHandlers = extractEventHandlers(_this2.props);
 
-        var cssObject = _objectSpread({}, pointStyles, style);
+        var cssObject = _objectSpread({}, pointStyles, {}, style);
 
         return React.createElement(MarkerLayer, Object.assign({
           key: "cluster-layer-point".concat(key),

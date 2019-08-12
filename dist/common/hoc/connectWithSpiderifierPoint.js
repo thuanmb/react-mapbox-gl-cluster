@@ -5,6 +5,7 @@ import _createClass from "@babel/runtime/helpers/esm/createClass";
 import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
+
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
@@ -305,7 +306,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     return props !== "markers" && props !== "coordinates";
   });
 
-  ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, spiderifierPropTypes, {
+  ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, {}, spiderifierPropTypes, {
     /**
      * Indicate if the spiderifier should be shown for the first overlapped point onload
      */
@@ -332,7 +333,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
      */
     onSpiderifierRemoved: PropTypes.func
   });
-  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, ReactMapboxGlSpiderifier.defaultProps);
+  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, {}, ReactMapboxGlSpiderifier.defaultProps);
   return ConnectedWithSpiderifierComponent;
 };
 

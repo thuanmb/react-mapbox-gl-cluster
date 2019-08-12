@@ -3,31 +3,28 @@
   "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "files": [
-    "dist",
-    "README.md"
-  ],
+  "files": ["dist", "README.md"],
   "repository": {
     "type": "git",
     "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
   },
   "dependencies": {
-    "@turf/invariant": "^6.1.2",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
-    "mapbox-gl": "^0.53.1",
-    "node-sass": "^4.11.0",
-    "prop-types": "^15.7.2",
-    "react-mapbox-gl": "^4.2.0",
-    "react-mapbox-gl-spiderifier": "^0.1.5",
-    "supercluster": "^6.0.1"
+    "@turf/invariant": "6.1.2",
+    "classnames": "2.2.6",
+    "lodash": "4.17.15",
+    "mapbox-gl": "1.2.1",
+    "node-sass": "4.12.0",
+    "prop-types": "15.7.2",
+    "react-mapbox-gl": "4.6.0",
+    "react-mapbox-gl-spiderifier": "1.0.1",
+    "supercluster": "6.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "babel-preset-react-app": "^7.0.2",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "@babel/cli": "7.5.5",
+    "babel-preset-react-app": "9.0.1",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-scripts": "3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,10 +35,5 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
