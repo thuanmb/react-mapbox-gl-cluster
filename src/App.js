@@ -21,6 +21,13 @@ const CustomSpiralComponent = ({properties, ...restProps}) => {
   return <div className="spiderifier-marker-content" onClick={onClick}></div>;
 };
 
+const CustomeMarkerComponent = ({properties, className, cssObject}) => {
+  const onClick = e => {
+    console.log(`Receive event onClick in marker at properties: ${JSON.stringify(properties)}`);
+  };
+  return <div className={className} style={cssObject} onClick={onClick} />;
+};
+
 class App extends Component {
   getEventHandlers() {
     return {
@@ -47,7 +54,12 @@ class App extends Component {
     return (
       <div className="App">
         <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
-          <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} spiralComponent={CustomSpiralComponent} />
+          <ReactMapboxGlCluster
+            data={data}
+            {...this.getEventHandlers()}
+            spiralComponent={CustomSpiralComponent}
+            markerComponent={CustomeMarkerComponent}
+          />
         </Map>
       </div>
     );

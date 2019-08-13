@@ -9,13 +9,13 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-import React, { PureComponent } from "react";
-import classnames from "classnames";
-import { getCoord } from "@turf/invariant";
-import { extractEventHandlers } from "../../common/utils";
-import Cluster from "./Cluster";
-import { MarkerLayer } from "../MarkerLayer";
-import "./ClusterLayer.css";
+import React, { PureComponent } from 'react';
+import classnames from 'classnames';
+import { getCoord } from '@turf/invariant';
+import { extractEventHandlers } from '../../common/utils';
+import Cluster from './Cluster';
+import { MarkerLayer } from '../MarkerLayer';
+import './ClusterLayer.css';
 
 var ClusterLayer =
 /*#__PURE__*/
@@ -37,7 +37,7 @@ function (_PureComponent) {
 
     _this._clusterMarkerFactory = function (coordinates, pointCount, getLeaves) {
       var clusterClassName = _this.props.clusterClassName;
-      var className = classnames("cluster-layer--cluster", clusterClassName);
+      var className = classnames('cluster-layer--cluster', clusterClassName);
       var points = getLeaves();
 
       var pointsProps = _this._getPointsProps(points);
@@ -77,7 +77,7 @@ function (_PureComponent) {
     key: "_getPointsProps",
     value: function _getPointsProps(points) {
       return points.map(function (point) {
-        var feature = point.props["data-feature"];
+        var feature = point.props['data-feature'];
         var properties = feature.properties;
         return _objectSpread({}, properties, {
           coordinates: getCoord(feature)
@@ -93,8 +93,9 @@ function (_PureComponent) {
           data = _this$props2.data,
           pointClassName = _this$props2.pointClassName,
           _this$props2$pointSty = _this$props2.pointStyles,
-          pointStyles = _this$props2$pointSty === void 0 ? {} : _this$props2$pointSty;
-      var markerClassName = classnames("cluster-layer--point", pointClassName);
+          pointStyles = _this$props2$pointSty === void 0 ? {} : _this$props2$pointSty,
+          MarkerComponent = _this$props2.markerComponent;
+      var markerClassName = classnames('cluster-layer--point', pointClassName);
       return data.features.map(function (feature, key) {
         var coordinates = feature.geometry.coordinates,
             properties = feature.properties;
@@ -108,7 +109,11 @@ function (_PureComponent) {
           coordinates: coordinates,
           "data-feature": feature,
           properties: properties
-        }, eventHandlers), React.createElement("div", {
+        }, eventHandlers), MarkerComponent ? React.createElement(MarkerComponent, {
+          properties: properties,
+          className: markerClassName,
+          style: cssObject
+        }) : React.createElement("div", {
           className: markerClassName,
           style: cssObject
         }));
@@ -128,7 +133,7 @@ function (_PureComponent) {
   return ClusterLayer;
 }(PureComponent);
 
-ClusterLayer.displayName = "ClusterLayer";
+ClusterLayer.displayName = 'ClusterLayer';
 ClusterLayer.defaultProps = {
   radius: 60,
   minZoom: 0,

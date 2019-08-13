@@ -1,22 +1,19 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import { getCoord } from "@turf/invariant";
-import { extractEventHandlers } from "../../common/utils";
-import Cluster from "./Cluster";
-import { MarkerLayer } from "../MarkerLayer";
-import "./ClusterLayer.css";
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import {getCoord} from '@turf/invariant';
+import {extractEventHandlers} from '../../common/utils';
+import Cluster from './Cluster';
+import {MarkerLayer} from '../MarkerLayer';
+import './ClusterLayer.css';
 
 class ClusterLayer extends PureComponent {
   _clusterMarkerFactory = (coordinates, pointCount, getLeaves) => {
-    const { clusterClassName } = this.props;
-    const className = classnames("cluster-layer--cluster", clusterClassName);
+    const {clusterClassName} = this.props;
+    const className = classnames('cluster-layer--cluster', clusterClassName);
     const points = getLeaves();
     const pointsProps = this._getPointsProps(points);
-    const clusterEventHandlers = extractEventHandlers(
-      this.props,
-      /^onCluster(.+)$/i
-    );
+    const clusterEventHandlers = extractEventHandlers(this.props, /^onCluster(.+)$/i);
 
     return (
       <MarkerLayer
@@ -24,8 +21,7 @@ class ClusterLayer extends PureComponent {
         coordinates={coordinates}
         className="cluster-layer-container"
         properties={pointsProps}
-        {...clusterEventHandlers}
-      >
+        {...clusterEventHandlers}>
         <div className={className}>
           <div>{pointCount}</div>
         </div>
@@ -34,39 +30,42 @@ class ClusterLayer extends PureComponent {
   };
 
   _getClusterProps() {
-    const { radius, minZoom, maxZoom, extent, nodeSize } = this.props;
+    const {radius, minZoom, maxZoom, extent, nodeSize} = this.props;
 
     return {
       radius,
       minZoom,
       maxZoom,
       extent,
-      nodeSize
+      nodeSize,
     };
   }
 
   _getPointsProps(points) {
     return points.map(point => {
-      const feature = point.props["data-feature"];
-      const { properties } = feature;
+      const feature = point.props['data-feature'];
+      const {properties} = feature;
       return {
         ...properties,
-        coordinates: getCoord(feature)
+        coordinates: getCoord(feature),
       };
     });
   }
 
   _renderMarkers() {
-    const { data, pointClassName, pointStyles = {} } = this.props;
-    const markerClassName = classnames("cluster-layer--point", pointClassName);
+    const {data, pointClassName, pointStyles = {}, markerComponent: MarkerComponent} = this.props;
+    const markerClassName = classnames('cluster-layer--point', pointClassName);
 
     return data.features.map((feature, key) => {
-      const { geometry: { coordinates }, properties } = feature;
-      const { style } = properties;
+      const {
+        geometry: {coordinates},
+        properties,
+      } = feature;
+      const {style} = properties;
       const eventHandlers = extractEventHandlers(this.props);
       const cssObject = {
         ...pointStyles,
-        ...style
+        ...style,
       };
 
       return (
@@ -75,9 +74,12 @@ class ClusterLayer extends PureComponent {
           coordinates={coordinates}
           data-feature={feature}
           properties={properties}
-          {...eventHandlers}
-        >
-          <div className={markerClassName} style={cssObject} />
+          {...eventHandlers}>
+          {MarkerComponent ? (
+            <MarkerComponent properties={properties} className={markerClassName} style={cssObject} />
+          ) : (
+            <div className={markerClassName} style={cssObject} />
+          )}
         </MarkerLayer>
       );
     });
@@ -87,34 +89,31 @@ class ClusterLayer extends PureComponent {
     const clusterProps = this._getClusterProps();
 
     return (
-      <Cluster
-        ClusterMarkerFactory={this._clusterMarkerFactory}
-        {...clusterProps}
-      >
+      <Cluster ClusterMarkerFactory={this._clusterMarkerFactory} {...clusterProps}>
         {this._renderMarkers()}
       </Cluster>
     );
   }
 }
 
-ClusterLayer.displayName = "ClusterLayer";
+ClusterLayer.displayName = 'ClusterLayer';
 
 ClusterLayer.propTypes = {
   /**
    * Data source for layer. It must to follow FeatureCollection geojson format
    */
   data: PropTypes.shape({
-    type: PropTypes.oneOf(["FeatureCollection"]).isRequired,
+    type: PropTypes.oneOf(['FeatureCollection']).isRequired,
     features: PropTypes.arrayOf(
       PropTypes.shape({
-        type: PropTypes.oneOf(["Feature"]).isRequired,
+        type: PropTypes.oneOf(['Feature']).isRequired,
         geometry: PropTypes.shape({
           type: PropTypes.string.isRequired,
-          coordinates: PropTypes.array.isRequired
+          coordinates: PropTypes.array.isRequired,
         }).isRequired,
-        properties: PropTypes.object.isRequired
-      })
-    ).isRequired
+        properties: PropTypes.object.isRequired,
+      }),
+    ).isRequired,
   }),
 
   /**
@@ -158,9 +157,14 @@ ClusterLayer.propTypes = {
   clusterClassName: PropTypes.string,
 
   /**
-   * [Optional] Handle when user move the mouse enter a point
+   * [Optional] The class name of each cluster.
    */
-  onMouseEnter: PropTypes.func,
+  clusterClassName: PropTypes.string,
+
+  /**
+   * [Optional] Customize the marker
+   */
+  markerComponent: PropTypes.element,
 
   /**
    * [Optional] Handle when user move the mouse leave a point
@@ -185,7 +189,7 @@ ClusterLayer.propTypes = {
   /**
    * [Optional] Handle when user move the mouse leave a cluster
    */
-  onClusterMouseLeave: PropTypes.func
+  onClusterMouseLeave: PropTypes.func,
 };
 
 ClusterLayer.defaultProps = {
@@ -193,7 +197,7 @@ ClusterLayer.defaultProps = {
   minZoom: 0,
   maxZoom: 20,
   extent: 512,
-  nodeSize: 64
+  nodeSize: 64,
 };
 
 export default ClusterLayer;
