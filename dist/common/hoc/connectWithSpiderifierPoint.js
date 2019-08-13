@@ -10,16 +10,16 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import { checkPropsChange } from "../utils";
-import { ReactMapboxGlSpiderifier } from "react-mapbox-gl-spiderifier";
-import { getCoord } from "@turf/invariant";
-import { findPointsWithSameLocation, groupNearestPointsByRadius } from "../utils";
-import { ClusterOptions } from "../constants/ClusterOptions";
-import MappedComponent from "../../components/MappedComponent";
-import "./spiderifier.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { checkPropsChange } from '../utils';
+import { ReactMapboxGlSpiderifier } from 'react-mapbox-gl-spiderifier';
+import { getCoord } from '@turf/invariant';
+import { findPointsWithSameLocation, groupNearestPointsByRadius } from '../utils';
+import { ClusterOptions } from '../constants/ClusterOptions';
+import MappedComponent from '../../components/MappedComponent';
+import './spiderifier.css';
 
 var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedComponent) {
   var ConnectedWithSpiderifierComponent =
@@ -82,7 +82,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     }, {
       key: "shouldComponentUpdate",
       value: function shouldComponentUpdate(nextProps, nextState) {
-        return checkPropsChange(this.props, nextProps, ["data", "showInitialSpiderifier", "onlySpiderifier", "circleFootSeparation", "transformSpiderLeft", "showingLegs"], _.isEqual) || !_.isEqual(this.state, nextState);
+        return checkPropsChange(this.props, nextProps, ['data', 'showInitialSpiderifier', 'onlySpiderifier', 'circleFootSeparation', 'transformSpiderLeft', 'showingLegs'], _.isEqual) || !_.isEqual(this.state, nextState);
       }
     }, {
       key: "componentWillUnmount",
@@ -95,7 +95,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
         var map = this.getMapInstance();
 
         if (map && !this.registeredEvents) {
-          map.on("zoomend", this.onMapChange);
+          map.on('zoomend', this.onMapChange);
           this.registeredEvents = true;
         }
       }
@@ -105,7 +105,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
         var map = this.getMapInstance();
 
         if (map) {
-          map.off("zoomend", this.onMapChange);
+          map.off('zoomend', this.onMapChange);
         }
       }
     }, {
@@ -136,7 +136,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     }, {
       key: "_checkAndUpdatePoints",
       value: function _checkAndUpdatePoints(nextProps) {
-        if (checkPropsChange(this.props, nextProps, ["data", "showInitialSpiderifier", "onlySpiderifier"], _.isEqual)) {
+        if (checkPropsChange(this.props, nextProps, ['data', 'showInitialSpiderifier', 'onlySpiderifier'], _.isEqual)) {
           this._updatePoints(nextProps);
         }
       }
@@ -198,6 +198,15 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     }, {
       key: "_renderSpiderifierContent",
       value: function _renderSpiderifierContent(key, properties) {
+        var SpiralComponent = this.props.spiralComponent;
+
+        if (SpiralComponent) {
+          return React.createElement(SpiralComponent, {
+            key: key,
+            properties: properties
+          });
+        }
+
         return React.createElement("div", {
           className: "spiderifier-marker-content",
           key: key,
@@ -307,7 +316,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
   }(MappedComponent);
 
   var spiderifierPropTypes = _.pickBy(ReactMapboxGlSpiderifier.propTypes, function (value, props) {
-    return props !== "markers" && props !== "coordinates";
+    return props !== 'markers' && props !== 'coordinates';
   });
 
   ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, {}, spiderifierPropTypes, {
@@ -335,7 +344,12 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
      * [Optional] Handle when user do zoom/move to change the map and made the points
      * on the map changed and don't have overlapped points anymore
      */
-    onSpiderifierRemoved: PropTypes.func
+    onSpiderifierRemoved: PropTypes.func,
+
+    /**
+     * Allow to customize the spiral component
+     */
+    spiralComponent: PropTypes.element
   });
   ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, {}, ReactMapboxGlSpiderifier.defaultProps);
   return ConnectedWithSpiderifierComponent;

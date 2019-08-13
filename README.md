@@ -94,6 +94,23 @@ class App extends Component {
 - `clusterClassName (string)`
   [Optional] The class name of each cluster.
 
+- `spiralComponent (element)`
+  [Optional] The custom component for the spiral. For example:
+
+  ```
+  const CustomSpiralComponent = ({properties, ...restProps}) => {
+    const onClick = e => {
+      console.log(`Receive event onClick in spiral at properties: ${JSON.stringify(properties)}`);
+    };
+    return <div className="spiderifier-marker-content" onClick={onClick}></div>;
+  };
+
+  ...
+  <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
+    <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} spiralComponent={CustomSpiralComponent} />
+  </Map>
+  ```
+
 #### Events
 
 - `onClick (function)`
@@ -115,6 +132,24 @@ class App extends Component {
   [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
+
+### 1.1.0
+
+- Support custom spiral.
+
+  ```
+  const CustomSpiralComponent = ({properties, ...restProps}) => {
+    const onClick = e => {
+      console.log(`Receive event onClick in spiral at properties: ${JSON.stringify(properties)}`);
+    };
+    return <div className="spiderifier-marker-content" onClick={onClick}></div>;
+  };
+
+  ...
+  <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
+    <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} spiralComponent={CustomSpiralComponent} />
+  </Map>
+  ```
 
 ### 1.0.0
 
