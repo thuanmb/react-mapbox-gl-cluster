@@ -122,6 +122,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.2.1
+
+- Fix bundling issue.
+
 ### 1.2.0
 
 - Support custom marker.
