@@ -122,6 +122,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.3.0
+
+- Upgrading packages
+
 ### 1.2.1
 
 - Fix bundling issue.
