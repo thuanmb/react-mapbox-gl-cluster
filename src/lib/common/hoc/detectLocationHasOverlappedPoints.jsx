@@ -1,27 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import {
-  featureCollection as createFeatureCollection,
-  point as createPoint
-} from "@turf/helpers";
-import { findPointsWithSameLocation } from "../utils";
-import { ClusterOptions } from "../constants/ClusterOptions";
-import MappedComponent from "../../components/MappedComponent";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {featureCollection as createFeatureCollection, point as createPoint} from '@turf/helpers';
+import {findPointsWithSameLocation} from '../utils';
+import {ClusterOptions} from '../constants/ClusterOptions';
+import MappedComponent from '../../components/MappedComponent';
 
 const detectLocationHasOverlappedPoints = WrappedComponent => {
   class LayerWithOverlappedPointComponent extends MappedComponent {
     static contextTypes = {
-      map: PropTypes.object
+      map: PropTypes.object,
     };
 
     onClick = (properties, lngLat, event, meta) => {
-      const { onClick } = this.props;
+      const {onClick} = this.props;
       this._handleClick(properties, lngLat, event, meta, onClick);
     };
 
     onClusterClick = (properties, lngLat, event, meta) => {
-      const { onClusterClick } = this.props;
+      const {onClusterClick} = this.props;
       this._handleClick(properties, lngLat, event, meta, onClusterClick);
     };
 
@@ -33,18 +30,16 @@ const detectLocationHasOverlappedPoints = WrappedComponent => {
 
         return true;
       }
-      const { onClickOverlappedPoints } = this.props;
+      const {onClickOverlappedPoints} = this.props;
       const map = this.getMapInstance();
-      const features = properties.map(prop =>
-        createPoint(prop.coordinates, prop)
-      );
+      const features = properties.map(prop => createPoint(prop.coordinates, prop));
       const data = createFeatureCollection(features);
       const points = findPointsWithSameLocation(
         data,
         lngLat,
         map,
         ClusterOptions.NearestPointsRadius,
-        ClusterOptions.ZoomLevel
+        ClusterOptions.ZoomLevel,
       );
       if (points) {
         if (_.isFunction(onClickOverlappedPoints)) {
@@ -62,7 +57,7 @@ const detectLocationHasOverlappedPoints = WrappedComponent => {
       const props = {
         ...this.props,
         onClick: this.onClick,
-        onClusterClick: this.onClusterClick
+        onClusterClick: this.onClusterClick,
       };
 
       return <WrappedComponent {...props} />;
@@ -70,15 +65,14 @@ const detectLocationHasOverlappedPoints = WrappedComponent => {
   }
 
   LayerWithOverlappedPointComponent.propTypes = {
-    ...WrappedComponent.propTypes,
     /**
      * [Optional] Handle when user click on a location which has overlapped points
      */
-    onClickOverlappedPoints: PropTypes.func
+    onClickOverlappedPoints: PropTypes.func,
   };
 
   LayerWithOverlappedPointComponent.defaultProps = {
-    ...WrappedComponent.defaultProps
+    ...WrappedComponent.defaultProps,
   };
 
   return LayerWithOverlappedPointComponent;

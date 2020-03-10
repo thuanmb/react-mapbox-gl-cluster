@@ -4,11 +4,11 @@ import _createClass from "@babel/runtime/helpers/esm/createClass";
 import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import MappedComponent from "../../components/MappedComponent";
-import { calculateNextZoomLevel } from "../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import MappedComponent from '../../components/MappedComponent';
+import { calculateNextZoomLevel } from '../utils';
 
 var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
   var ZoomableComponent =
@@ -72,7 +72,6 @@ var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
   ZoomableComponent.contextTypes = {
     map: PropTypes.object
   };
-  ZoomableComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes);
   ZoomableComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps);
   return ZoomableComponent;
 };

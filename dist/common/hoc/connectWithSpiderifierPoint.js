@@ -15,6 +15,8 @@ import { findPointsWithSameLocation, groupNearestPointsByRadius } from '../utils
 import { ClusterOptions } from '../constants/ClusterOptions';
 import MappedComponent from '../../components/MappedComponent';
 import './spiderifier.css';
+var SPIDERIFIER_PROPS = ['coordinates', 'circleSpiralSwitchover', 'circleFootSeparation', 'spiralFootSeparation', 'spiralLengthStart', 'spiralLengthFactor', 'animate', 'animationSpeed', 'transformSpiderLeft', 'transformSpiderTop', 'showingLegs', 'onClick', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+var MARKER_PROPS = ['data', 'radius', 'minZoom', 'maxZoom', 'extent', 'nodeSize', 'pointClassName', 'pointStyles', 'clusterClassName', 'clusterClassName', 'markerComponent', 'onMouseLeave', 'onClick', 'onClusterClick', 'onClusterMouseEnter', 'onClusterMouseLeave'];
 
 var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedComponent) {
   var ConnectedWithSpiderifierComponent =
@@ -137,22 +139,18 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
       }
     }, {
       key: "_getComponentProps",
-      value: function _getComponentProps(propTypes) {
-        var keys = _.map(propTypes, function (value, propKey) {
-          return propKey;
-        });
-
+      value: function _getComponentProps(keys) {
         return _.pick(this.props, keys);
       }
     }, {
       key: "_getWrappedComponentProps",
       value: function _getWrappedComponentProps() {
-        return this._getComponentProps(WrappedComponent.propTypes);
+        return this._getComponentProps(MARKER_PROPS);
       }
     }, {
       key: "_getSpiderifierComponentProps",
       value: function _getSpiderifierComponentProps() {
-        return this._getComponentProps(ReactMapboxGlSpiderifier.propTypes);
+        return this._getComponentProps(SPIDERIFIER_PROPS);
       }
     }, {
       key: "_groupNearestPoint",
@@ -310,11 +308,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     return ConnectedWithSpiderifierComponent;
   }(MappedComponent);
 
-  var spiderifierPropTypes = _.pickBy(ReactMapboxGlSpiderifier.propTypes, function (value, props) {
-    return props !== 'markers' && props !== 'coordinates';
-  });
-
-  ConnectedWithSpiderifierComponent.propTypes = _objectSpread({}, WrappedComponent.propTypes, {}, spiderifierPropTypes, {
+  ConnectedWithSpiderifierComponent.propTypes = {
     /**
      * Indicate if the spiderifier should be shown for the first overlapped point onload
      */
@@ -345,7 +339,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
      * Allow to customize the spiral component
      */
     spiralComponent: PropTypes.element
-  });
+  };
   ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, {}, ReactMapboxGlSpiderifier.defaultProps);
   return ConnectedWithSpiderifierComponent;
 };

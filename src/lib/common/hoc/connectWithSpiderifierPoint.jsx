@@ -9,6 +9,46 @@ import {ClusterOptions} from '../constants/ClusterOptions';
 import MappedComponent from '../../components/MappedComponent';
 import './spiderifier.css';
 
+const SPIDERIFIER_PROPS = [
+  'coordinates',
+  'circleSpiralSwitchover',
+  'circleFootSeparation',
+  'spiralFootSeparation',
+  'spiralLengthStart',
+  'spiralLengthFactor',
+  'animate',
+  'animationSpeed',
+  'transformSpiderLeft',
+  'transformSpiderTop',
+  'showingLegs',
+  'onClick',
+  'onMouseDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseOut',
+  'onMouseOver',
+  'onMouseUp',
+];
+const MARKER_PROPS = [
+  'data',
+  'radius',
+  'minZoom',
+  'maxZoom',
+  'extent',
+  'nodeSize',
+  'pointClassName',
+  'pointStyles',
+  'clusterClassName',
+  'clusterClassName',
+  'markerComponent',
+  'onMouseLeave',
+  'onClick',
+  'onClusterClick',
+  'onClusterMouseEnter',
+  'onClusterMouseLeave',
+];
+
 const connectWithSpiderifierPoint = WrappedComponent => {
   class ConnectedWithSpiderifierComponent extends MappedComponent {
     constructor(props) {
@@ -110,17 +150,16 @@ const connectWithSpiderifierPoint = WrappedComponent => {
       }
     }
 
-    _getComponentProps(propTypes) {
-      const keys = _.map(propTypes, (value, propKey) => propKey);
+    _getComponentProps(keys) {
       return _.pick(this.props, keys);
     }
 
     _getWrappedComponentProps() {
-      return this._getComponentProps(WrappedComponent.propTypes);
+      return this._getComponentProps(MARKER_PROPS);
     }
 
     _getSpiderifierComponentProps() {
-      return this._getComponentProps(ReactMapboxGlSpiderifier.propTypes);
+      return this._getComponentProps(SPIDERIFIER_PROPS);
     }
 
     _groupNearestPoint(props) {
@@ -247,14 +286,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
     }
   }
 
-  const spiderifierPropTypes = _.pickBy(
-    ReactMapboxGlSpiderifier.propTypes,
-    (value, props) => props !== 'markers' && props !== 'coordinates',
-  );
   ConnectedWithSpiderifierComponent.propTypes = {
-    ...WrappedComponent.propTypes,
-    ...spiderifierPropTypes,
-
     /**
      * Indicate if the spiderifier should be shown for the first overlapped point onload
      */
