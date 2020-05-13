@@ -3,7 +3,10 @@
     "version": "1.6.0",
     "main": "dist/index.js",
     "module": "dist/index.js",
-    "files": ["dist", "README.md"],
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
@@ -17,7 +20,7 @@
         "node-sass": "4.14.1",
         "prop-types": "15.7.2",
         "react-mapbox-gl": "4.8.3",
-        "react-mapbox-gl-spiderifier": "1.4.0",
+        "react-mapbox-gl-spiderifier": "1.5.0",
         "supercluster": "7.0.0"
     },
     "devDependencies": {
@@ -36,5 +39,10 @@
     "eslintConfig": {
         "extends": "react-app"
     },
-    "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
 }
