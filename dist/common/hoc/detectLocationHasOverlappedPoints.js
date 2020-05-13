@@ -1,26 +1,23 @@
 import _objectSpread from "@babel/runtime/helpers/esm/objectSpread2";
 import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
-import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { featureCollection as createFeatureCollection, point as createPoint } from '@turf/helpers';
-import { findPointsWithSameLocation } from '../utils';
-import { ClusterOptions } from '../constants/ClusterOptions';
-import MappedComponent from '../../components/MappedComponent';
+import _createSuper from "@babel/runtime/helpers/esm/createSuper";
+import React from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
+import { featureCollection as createFeatureCollection, point as createPoint } from "@turf/helpers";
+import { findPointsWithSameLocation } from "../utils";
+import { ClusterOptions } from "../constants/ClusterOptions";
+import MappedComponent from "../../components/MappedComponent";
 
 var detectLocationHasOverlappedPoints = function detectLocationHasOverlappedPoints(WrappedComponent) {
-  var LayerWithOverlappedPointComponent =
-  /*#__PURE__*/
-  function (_MappedComponent) {
+  var LayerWithOverlappedPointComponent = /*#__PURE__*/function (_MappedComponent) {
     _inherits(LayerWithOverlappedPointComponent, _MappedComponent);
 
-    function LayerWithOverlappedPointComponent() {
-      var _getPrototypeOf2;
+    var _super = _createSuper(LayerWithOverlappedPointComponent);
 
+    function LayerWithOverlappedPointComponent() {
       var _this;
 
       _classCallCheck(this, LayerWithOverlappedPointComponent);
@@ -29,7 +26,7 @@ var detectLocationHasOverlappedPoints = function detectLocationHasOverlappedPoin
         args[_key] = arguments[_key];
       }
 
-      _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(LayerWithOverlappedPointComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+      _this = _super.call.apply(_super, [this].concat(args));
 
       _this.onClick = function (properties, lngLat, event, meta) {
         var onClick = _this.props.onClick;
@@ -79,21 +76,18 @@ var detectLocationHasOverlappedPoints = function detectLocationHasOverlappedPoin
     }, {
       key: "render",
       value: function render() {
-        var props = _objectSpread({}, this.props, {
+        var props = _objectSpread(_objectSpread({}, this.props), {}, {
           onClick: this.onClick,
           onClusterClick: this.onClusterClick
         });
 
-        return React.createElement(WrappedComponent, props);
+        return /*#__PURE__*/React.createElement(WrappedComponent, props);
       }
     }]);
 
     return LayerWithOverlappedPointComponent;
   }(MappedComponent);
 
-  LayerWithOverlappedPointComponent.contextTypes = {
-    map: PropTypes.object
-  };
   LayerWithOverlappedPointComponent.propTypes = {
     /**
      * [Optional] Handle when user click on a location which has overlapped points

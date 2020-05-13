@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 export var checkPropsChange = function checkPropsChange(props, nextProps, keys) {
   var equalityChecker = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _.isEqual;
 

@@ -1,5 +1,5 @@
 {
-  "private": true,
-  "name": "cluster-layer",
-  "main": "./index.js"
+    "private": true,
+    "name": "cluster-layer",
+    "main": "./index.js"
 }

@@ -2,34 +2,33 @@ import _objectSpread from "@babel/runtime/helpers/esm/objectSpread2";
 import _toConsumableArray from "@babel/runtime/helpers/esm/toConsumableArray";
 import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
-import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { checkPropsChange } from '../utils';
-import { ReactMapboxGlSpiderifier } from 'react-mapbox-gl-spiderifier';
-import { getCoord } from '@turf/invariant';
-import { findPointsWithSameLocation, groupNearestPointsByRadius } from '../utils';
-import { ClusterOptions } from '../constants/ClusterOptions';
-import MappedComponent from '../../components/MappedComponent';
-import './spiderifier.css';
-var SPIDERIFIER_PROPS = ['coordinates', 'circleSpiralSwitchover', 'circleFootSeparation', 'spiralFootSeparation', 'spiralLengthStart', 'spiralLengthFactor', 'animate', 'animationSpeed', 'transformSpiderLeft', 'transformSpiderTop', 'showingLegs', 'onClick', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
-var MARKER_PROPS = ['data', 'radius', 'minZoom', 'maxZoom', 'extent', 'nodeSize', 'pointClassName', 'pointStyles', 'clusterClassName', 'clusterClassName', 'markerComponent', 'onMouseLeave', 'onClick', 'onClusterClick', 'onClusterMouseEnter', 'onClusterMouseLeave'];
+import _createSuper from "@babel/runtime/helpers/esm/createSuper";
+import React from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
+import { checkPropsChange } from "../utils";
+import { ReactMapboxGlSpiderifier } from "react-mapbox-gl-spiderifier";
+import { getCoord } from "@turf/invariant";
+import { findPointsWithSameLocation, groupNearestPointsByRadius } from "../utils";
+import { ClusterOptions } from "../constants/ClusterOptions";
+import MappedComponent from "../../components/MappedComponent";
+import "./spiderifier.css";
+var SPIDERIFIER_PROPS = ["coordinates", "circleSpiralSwitchover", "circleFootSeparation", "spiralFootSeparation", "spiralLengthStart", "spiralLengthFactor", "animate", "animationSpeed", "transformSpiderLeft", "transformSpiderTop", "showingLegs", "onClick", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp"];
+var MARKER_PROPS = ["data", "radius", "minZoom", "maxZoom", "extent", "nodeSize", "pointClassName", "pointStyles", "clusterClassName", "clusterClassName", "markerComponent", "onMouseLeave", "onClick", "onClusterClick", "onClusterMouseEnter", "onClusterMouseLeave"];
 
 var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedComponent) {
-  var ConnectedWithSpiderifierComponent =
-  /*#__PURE__*/
-  function (_MappedComponent) {
+  var ConnectedWithSpiderifierComponent = /*#__PURE__*/function (_MappedComponent) {
     _inherits(ConnectedWithSpiderifierComponent, _MappedComponent);
+
+    var _super = _createSuper(ConnectedWithSpiderifierComponent);
 
     function ConnectedWithSpiderifierComponent(props) {
       var _this;
 
       _classCallCheck(this, ConnectedWithSpiderifierComponent);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(ConnectedWithSpiderifierComponent).call(this, props));
+      _this = _super.call(this, props);
 
       _this.onClickOverlappedPoints = function (points, coordinates) {
         _this._updateSpiderifierProps([points], coordinates);
@@ -63,23 +62,16 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     }
 
     _createClass(ConnectedWithSpiderifierComponent, [{
-      key: "componentWillMount",
-      value: function componentWillMount() {
-        this._updatePoints();
-
-        this.bindEvents();
-      }
-    }, {
-      key: "componentWillReceiveProps",
-      value: function componentWillReceiveProps(nextProps) {
-        this._checkAndUpdatePoints(nextProps);
+      key: "componentDidUpdate",
+      value: function componentDidUpdate(prevProps) {
+        this._checkAndUpdatePoints(prevProps);
 
         this.bindEvents();
       }
     }, {
       key: "shouldComponentUpdate",
       value: function shouldComponentUpdate(nextProps, nextState) {
-        return checkPropsChange(this.props, nextProps, ['data', 'showInitialSpiderifier', 'onlySpiderifier', 'circleFootSeparation', 'transformSpiderLeft', 'showingLegs'], _.isEqual) || !_.isEqual(this.state, nextState);
+        return checkPropsChange(this.props, nextProps, ["data", "showInitialSpiderifier", "onlySpiderifier", "circleFootSeparation", "transformSpiderLeft", "showingLegs"], _.isEqual) || !_.isEqual(this.state, nextState);
       }
     }, {
       key: "componentWillUnmount",
@@ -92,7 +84,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
         var map = this.getMapInstance();
 
         if (map && !this.registeredEvents) {
-          map.on('zoomend', this.onMapChange);
+          map.on("zoomend", this.onMapChange);
           this.registeredEvents = true;
         }
       }
@@ -102,7 +94,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
         var map = this.getMapInstance();
 
         if (map) {
-          map.off('zoomend', this.onMapChange);
+          map.off("zoomend", this.onMapChange);
         }
       }
     }, {
@@ -132,9 +124,9 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
       }
     }, {
       key: "_checkAndUpdatePoints",
-      value: function _checkAndUpdatePoints(nextProps) {
-        if (checkPropsChange(this.props, nextProps, ['data', 'showInitialSpiderifier', 'onlySpiderifier'], _.isEqual)) {
-          this._updatePoints(nextProps);
+      value: function _checkAndUpdatePoints(prevProps) {
+        if (checkPropsChange(this.props, prevProps, ["data", "showInitialSpiderifier", "onlySpiderifier"], _.isEqual)) {
+          this._updatePoints();
         }
       }
     }, {
@@ -194,17 +186,17 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
         var SpiralComponent = this.props.spiralComponent;
 
         if (SpiralComponent) {
-          return React.createElement(SpiralComponent, {
+          return /*#__PURE__*/React.createElement(SpiralComponent, {
             key: key,
             properties: properties
           });
         }
 
-        return React.createElement("div", {
+        return /*#__PURE__*/React.createElement("div", {
           className: "spiderifier-marker-content",
           key: key,
           properties: properties
-        }, React.createElement("div", null, properties.label));
+        }, /*#__PURE__*/React.createElement("div", null, properties.label));
       }
     }, {
       key: "_renderSpiderifier",
@@ -219,7 +211,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
           return overlappedPointsGroup.map(function (overlappedPoints, index) {
             var coordinates = overlappedPoints.coordinates,
                 markers = overlappedPoints.markers;
-            return React.createElement(ReactMapboxGlSpiderifier, Object.assign({
+            return /*#__PURE__*/React.createElement(ReactMapboxGlSpiderifier, Object.assign({
               key: index
             }, spiderifierComponentProps, {
               coordinates: coordinates
@@ -290,7 +282,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
             }
           });
           this.setState({
-            overlappedPointsGroup: overlappedPointsGroup
+            overlappedPointsGroup
           });
         }
       }
@@ -299,7 +291,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
       value: function render() {
         var wrappedComponentProps = this._getWrappedComponentProps();
 
-        return React.createElement("div", null, this._shouldRenderClusterLayer() && React.createElement(WrappedComponent, Object.assign({}, wrappedComponentProps, {
+        return /*#__PURE__*/React.createElement("div", null, this._shouldRenderClusterLayer() && /*#__PURE__*/React.createElement(WrappedComponent, Object.assign({}, wrappedComponentProps, {
           onClickOverlappedPoints: this.onClickOverlappedPoints
         })), this._renderSpiderifier());
       }
@@ -338,9 +330,9 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
     /**
      * Allow to customize the spiral component
      */
-    spiralComponent: PropTypes.element
+    spiralComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
   };
-  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps, {}, ReactMapboxGlSpiderifier.defaultProps);
+  ConnectedWithSpiderifierComponent.defaultProps = _objectSpread(_objectSpread({}, WrappedComponent.defaultProps), ReactMapboxGlSpiderifier.defaultProps);
   return ConnectedWithSpiderifierComponent;
 };
 

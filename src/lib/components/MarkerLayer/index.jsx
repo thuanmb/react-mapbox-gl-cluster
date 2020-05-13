@@ -1,5 +1,3 @@
-import MarkerLayer from './Component';
+import MarkerLayer from "./Component";
 
-export {
-	MarkerLayer
-}
+export { MarkerLayer };

@@ -143,7 +143,7 @@ var createClusters = function createClusters(data, mapBox) {
   }
 
   var superC = new Supercluster({
-    radius: radius,
+    radius,
     maxZoom: mapBox.getMaxZoom()
   });
   var featureList = getFeatureList(data);
@@ -159,8 +159,8 @@ var createClusters = function createClusters(data, mapBox) {
   boundary = extendBounds(boundary, RADIUS_TO_EXTENDS);
   var clusters = featureList.length > 1 ? superC.getClusters(boundary, Math.round(zoom)) : featureList;
   return {
-    superC: superC,
-    clusters: clusters
+    superC,
+    clusters
   };
 };
 /**

@@ -1,24 +1,20 @@
 import _objectSpread from "@babel/runtime/helpers/esm/objectSpread2";
 import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
-import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import MappedComponent from '../../components/MappedComponent';
-import { calculateNextZoomLevel } from '../utils';
+import _createSuper from "@babel/runtime/helpers/esm/createSuper";
+import React from "react";
+import _ from "lodash";
+import MappedComponent from "../../components/MappedComponent";
+import { calculateNextZoomLevel } from "../utils";
 
 var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
-  var ZoomableComponent =
-  /*#__PURE__*/
-  function (_MappedComponent) {
+  var ZoomableComponent = /*#__PURE__*/function (_MappedComponent) {
     _inherits(ZoomableComponent, _MappedComponent);
 
-    function ZoomableComponent() {
-      var _getPrototypeOf2;
+    var _super = _createSuper(ZoomableComponent);
 
+    function ZoomableComponent() {
       var _this;
 
       _classCallCheck(this, ZoomableComponent);
@@ -27,7 +23,7 @@ var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
         args[_key] = arguments[_key];
       }
 
-      _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ZoomableComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+      _this = _super.call.apply(_super, [this].concat(args));
 
       _this.onClusterClick = function (properties, lngLat, event, meta) {
         var onClusterClick = _this.props.onClusterClick;
@@ -39,7 +35,7 @@ var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
         var zoom = calculateNextZoomLevel(currentZoom, maxZoom);
         map.flyTo({
           center: lngLat,
-          zoom: zoom
+          zoom
         });
 
         _this._handleClick(properties, lngLat, event, meta, onClusterClick);
@@ -58,20 +54,17 @@ var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
     }, {
       key: "render",
       value: function render() {
-        var props = _objectSpread({}, this.props, {
+        var props = _objectSpread(_objectSpread({}, this.props), {}, {
           onClusterClick: this.onClusterClick
         });
 
-        return React.createElement(WrappedComponent, props);
+        return /*#__PURE__*/React.createElement(WrappedComponent, props);
       }
     }]);
 
     return ZoomableComponent;
   }(MappedComponent);
 
-  ZoomableComponent.contextTypes = {
-    map: PropTypes.object
-  };
   ZoomableComponent.defaultProps = _objectSpread({}, WrappedComponent.defaultProps);
   return ZoomableComponent;
 };

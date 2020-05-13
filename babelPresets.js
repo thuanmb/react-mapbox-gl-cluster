@@ -1,5 +1,3 @@
 module.exports = () => ({
-  presets: [
-    [require("babel-preset-react-app"), { "absoluteRuntime": false }],
-  ],
+	presets: [[require("babel-preset-react-app"), { absoluteRuntime: false }]]
 });

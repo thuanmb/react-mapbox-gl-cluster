@@ -1,8 +1,7 @@
 import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
+import _createSuper from "@babel/runtime/helpers/esm/createSuper";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -11,14 +10,12 @@ import MapboxGl from "mapbox-gl";
 import { checkPropsChange, extractEventHandlers, getExactEventHandlerName } from "../../common/utils";
 import MappedComponent from "../MappedComponent";
 
-var MarkerLayer =
-/*#__PURE__*/
-function (_MappedComponent) {
+var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
   _inherits(MarkerLayer, _MappedComponent);
 
-  function MarkerLayer() {
-    var _getPrototypeOf2;
+  var _super = _createSuper(MarkerLayer);
 
+  function MarkerLayer() {
     var _this;
 
     _classCallCheck(this, MarkerLayer);
@@ -27,7 +24,7 @@ function (_MappedComponent) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MarkerLayer)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _super.call.apply(_super, [this].concat(args));
 
     _this._disableMapDragPan = function () {
       var map = _this.getMapInstance();
@@ -69,14 +66,14 @@ function (_MappedComponent) {
       this.layer = new MapboxGl.Marker(node).setLngLat(this.props.coordinates).addTo(this.getMapInstance());
     }
   }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.coordinates !== this.props.coordinates) {
-        this.layer.setLngLat(nextProps.coordinates);
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevProps.coordinates !== this.props.coordinates) {
+        this.layer.setLngLat(prevProps.coordinates);
       }
 
-      if (nextProps.children !== this.props.children || checkPropsChange(this.props, nextProps, ["style", "className"])) {
-        this.attachChildren(nextProps);
+      if (prevProps.children !== this.props.children || checkPropsChange(this.props, prevProps, ["style", "className"])) {
+        this.attachChildren(prevProps);
       }
     }
   }, {
@@ -123,7 +120,7 @@ function (_MappedComponent) {
     key: "getContent",
     value: function getContent(props) {
       var children = props.children;
-      return React.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         className: "nio-marker-content f-width f-height"
       }, children);
     }

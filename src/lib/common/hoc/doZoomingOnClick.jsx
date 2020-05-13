@@ -1,48 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import MappedComponent from '../../components/MappedComponent';
-import {calculateNextZoomLevel} from '../utils';
+import React from "react";
+import _ from "lodash";
+import MappedComponent from "../../components/MappedComponent";
+import { calculateNextZoomLevel } from "../utils";
 
 const doZoomingOnClick = WrappedComponent => {
-  class ZoomableComponent extends MappedComponent {
-    static contextTypes = {
-      map: PropTypes.object,
-    };
+	class ZoomableComponent extends MappedComponent {
+		onClusterClick = (properties, lngLat, event, meta) => {
+			const { onClusterClick } = this.props;
+			const map = this.getMapInstance();
+			const currentZoom = map.getZoom();
+			const maxZoom = map.getMaxZoom();
+			const zoom = calculateNextZoomLevel(currentZoom, maxZoom);
 
-    onClusterClick = (properties, lngLat, event, meta) => {
-      const {onClusterClick} = this.props;
-      const map = this.getMapInstance();
-      const currentZoom = map.getZoom();
-      const maxZoom = map.getMaxZoom();
-      const zoom = calculateNextZoomLevel(currentZoom, maxZoom);
+			map.flyTo({ center: lngLat, zoom });
 
-      map.flyTo({center: lngLat, zoom});
+			this._handleClick(properties, lngLat, event, meta, onClusterClick);
+		};
 
-      this._handleClick(properties, lngLat, event, meta, onClusterClick);
-    };
+		_handleClick(properties, lngLat, event, meta, callback) {
+			if (_.isFunction(callback)) {
+				callback(properties, lngLat, event, meta);
+			}
+		}
 
-    _handleClick(properties, lngLat, event, meta, callback) {
-      if (_.isFunction(callback)) {
-        callback(properties, lngLat, event, meta);
-      }
-    }
+		render() {
+			const props = {
+				...this.props,
+				onClusterClick: this.onClusterClick
+			};
 
-    render() {
-      const props = {
-        ...this.props,
-        onClusterClick: this.onClusterClick,
-      };
+			return <WrappedComponent {...props} />;
+		}
+	}
 
-      return <WrappedComponent {...props} />;
-    }
-  }
+	ZoomableComponent.defaultProps = {
+		...WrappedComponent.defaultProps
+	};
 
-  ZoomableComponent.defaultProps = {
-    ...WrappedComponent.defaultProps,
-  };
-
-  return ZoomableComponent;
+	return ZoomableComponent;
 };
 
 export default doZoomingOnClick;

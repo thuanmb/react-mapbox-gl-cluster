@@ -1,22 +1,22 @@
 import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
 import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _get from "@babel/runtime/helpers/esm/get";
+import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
+import _createSuper from "@babel/runtime/helpers/esm/createSuper";
 import { Cluster } from "react-mapbox-gl/lib-esm/cluster";
 import { withMap } from "react-mapbox-gl/lib-esm/context";
 import _ from "lodash";
 
-var OverridedCluster =
-/*#__PURE__*/
-function (_Cluster) {
+var OverridedCluster = /*#__PURE__*/function (_Cluster) {
   _inherits(OverridedCluster, _Cluster);
+
+  var _super = _createSuper(OverridedCluster);
 
   function OverridedCluster() {
     _classCallCheck(this, OverridedCluster);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(OverridedCluster).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(OverridedCluster, [{
@@ -35,8 +35,8 @@ function (_Cluster) {
       map.off("zoom", this.mapChange);
     }
   }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
       var _this$props = this.props,
           children = _this$props.children,
           map = _this$props.map;

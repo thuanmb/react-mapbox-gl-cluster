@@ -1,13 +1,7 @@
-import {
-  connectWithSpiderifierPoint,
-  detectLocationHasOverlappedPoints,
-  doZoomingOnClick
-} from "../../common/hoc";
+import { connectWithSpiderifierPoint, detectLocationHasOverlappedPoints, doZoomingOnClick } from "../../common/hoc";
 import ClusterLayer from "./ClusterLayer";
 
-const ClusterLayerWithOverlappedPoints = detectLocationHasOverlappedPoints(
-  ClusterLayer
-);
+const ClusterLayerWithOverlappedPoints = detectLocationHasOverlappedPoints(ClusterLayer);
 
 const ZoomableClusterLayer = doZoomingOnClick(ClusterLayerWithOverlappedPoints);
 
