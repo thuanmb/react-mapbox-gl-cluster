@@ -2,8 +2,8 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { getCoord } from "@turf/invariant";
+import { Cluster } from "react-mapbox-gl";
 import { extractEventHandlers } from "../../common/utils";
-import Cluster from "./Cluster";
 import { MarkerLayer } from "../MarkerLayer";
 import "./ClusterLayer.css";
 

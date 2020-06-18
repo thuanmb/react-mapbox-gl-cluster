@@ -3,7 +3,7 @@ import _createClass from "@babel/runtime/helpers/esm/createClass";
 import _inherits from "@babel/runtime/helpers/esm/inherits";
 import _createSuper from "@babel/runtime/helpers/esm/createSuper";
 import { Component } from "react";
-import { MapContext } from "react-mapbox-gl/lib-esm/context";
+import { MapContext } from "react-mapbox-gl";
 
 var MappedComponent = /*#__PURE__*/function (_Component) {
   _inherits(MappedComponent, _Component);

@@ -79,6 +79,10 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
+      if (!this.layer) {
+        return;
+      }
+
       this.layer.remove();
       delete this.layer;
     }

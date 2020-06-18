@@ -22,6 +22,9 @@ class MarkerLayer extends MappedComponent {
 	}
 
 	componentWillUnmount() {
+		if (!this.layer) {
+			return;
+		}
 		this.layer.remove();
 		delete this.layer;
 	}
