@@ -3,6 +3,22 @@ import { withMap } from "react-mapbox-gl/lib-esm/context";
 import _ from "lodash";
 
 class OverridedCluster extends Cluster {
+	UNSAFE_componentWillMount() {
+		const { children, map } = this.props;
+
+		if (children) {
+			this.childrenChange(children);
+		}
+
+		if (!map) {
+			return;
+		}
+
+		map.on("move", this.mapChange);
+		map.on("zoom", this.mapChange);
+		this.mapChange();
+	}
+
 	componentWillUnmount() {
 		if (super.componentWillUnmount) {
 			super.componentWillUnmount();

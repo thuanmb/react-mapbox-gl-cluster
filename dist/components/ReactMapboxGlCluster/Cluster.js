@@ -20,6 +20,25 @@ var OverridedCluster = /*#__PURE__*/function (_Cluster) {
   }
 
   _createClass(OverridedCluster, [{
+    key: "UNSAFE_componentWillMount",
+    value: function UNSAFE_componentWillMount() {
+      var _this$props = this.props,
+          children = _this$props.children,
+          map = _this$props.map;
+
+      if (children) {
+        this.childrenChange(children);
+      }
+
+      if (!map) {
+        return;
+      }
+
+      map.on("move", this.mapChange);
+      map.on("zoom", this.mapChange);
+      this.mapChange();
+    }
+  }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       if (_get(_getPrototypeOf(OverridedCluster.prototype), "componentWillUnmount", this)) {
@@ -37,9 +56,9 @@ var OverridedCluster = /*#__PURE__*/function (_Cluster) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      var _this$props = this.props,
-          children = _this$props.children,
-          map = _this$props.map;
+      var _this$props2 = this.props,
+          children = _this$props2.children,
+          map = _this$props2.map;
 
       if (!map) {
         return;
