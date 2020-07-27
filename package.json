@@ -9,23 +9,23 @@
         "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
     },
     "dependencies": {
-        "@babel/runtime": "7.9.6",
-        "@turf/invariant": "6.1.2",
-        "classnames": "2.2.6",
-        "lodash": "4.17.15",
-        "mapbox-gl": "1.11.0",
-        "node-sass": "4.14.1",
-        "prop-types": "15.7.2",
-        "react-mapbox-gl": "4.8.3",
-        "react-mapbox-gl-spiderifier": "1.6.0",
-        "supercluster": "7.0.0"
+        "@babel/runtime": "^7.9.6",
+        "@turf/invariant": "^6.1.2",
+        "classnames": "^2.2.6",
+        "lodash": "^4.17.15",
+        "mapbox-gl": "^1.11.0",
+        "node-sass": "^4.14.1",
+        "prop-types": "^15.7.2",
+        "react-mapbox-gl": "^4.8.3",
+        "react-mapbox-gl-spiderifier": "^1.6.0",
+        "supercluster": "^7.0.0"
     },
     "devDependencies": {
-        "@babel/cli": "7.8.4",
-        "babel-preset-react-app": "9.1.2",
-        "react": "16.13.1",
-        "react-dom": "16.13.1",
-        "react-scripts": "3.4.1"
+        "@babel/cli": "^7.8.4",
+        "babel-preset-react-app": "^9.1.2",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-scripts": "^3.4.1"
     },
     "scripts": {
         "start": "react-scripts start",
