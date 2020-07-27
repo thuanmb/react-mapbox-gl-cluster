@@ -122,6 +122,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.10.0
+
+- Use caret version for react-mapbox-gl
+
 ### 1.7.0
 
 - Upgrading packages
