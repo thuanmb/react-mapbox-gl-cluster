@@ -5,24 +5,24 @@ import { data } from "./data";
 import "./App.css";
 
 const Map = ReactMapboxGl({
-	accessToken: process.env.REACT_APP_MAPBOX_GL_TOKEN
+	accessToken: process.env.REACT_APP_MAPBOX_GL_TOKEN,
 });
 
 const mapProps = {
 	center: [-95.7129, 37.0902],
 	zoom: [3],
-	style: "mapbox://styles/mapbox/streets-v8"
+	style: "mapbox://styles/mapbox/streets-v8",
 };
 
 const CustomSpiralComponent = ({ properties, ...restProps }) => {
-	const onClick = e => {
+	const onClick = (e) => {
 		console.log(`Receive event onClick in spiral at properties: ${JSON.stringify(properties)}`);
 	};
 	return <div className="spiderifier-marker-content" onClick={onClick}></div>;
 };
 
 const CustomeMarkerComponent = ({ properties, className, cssObject }) => {
-	const onClick = e => {
+	const onClick = (e) => {
 		console.log(`Receive event onClick in marker at properties: ${JSON.stringify(properties)}`);
 	};
 	return <div className={className} style={cssObject} onClick={onClick} />;
@@ -46,7 +46,7 @@ class App extends Component {
 			onClusterMouseLeave: (properties, coords, offset) =>
 				console.log(
 					`Receive event onClusterMouseLeave at properties: ${properties}, coords: ${coords}, offset: ${offset}`
-				)
+				),
 		};
 	}
 
@@ -59,6 +59,7 @@ class App extends Component {
 						{...this.getEventHandlers()}
 						spiralComponent={CustomSpiralComponent}
 						markerComponent={CustomeMarkerComponent}
+						clusterClickEnabled={true}
 					/>
 				</Map>
 			</div>

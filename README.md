@@ -100,6 +100,9 @@ class App extends Component {
 - `markerComponent (element)`
   [Optional] The custom component for marker
 
+- clusterClickEnabled (bool)
+  [Optional] Enable/disable zoom on cluster click
+
 #### Events
 
 - `onClick (function)`
@@ -121,6 +124,11 @@ class App extends Component {
   [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
+
+### 1.11.0
+
+- Support `clusterClickEnabled` flag to enable/disable on cluster click event
+- Bumps depedencies version
 
 ### 1.10.0
 

@@ -28,7 +28,7 @@ const SPIDERIFIER_PROPS = [
 	"onMouseMove",
 	"onMouseOut",
 	"onMouseOver",
-	"onMouseUp"
+	"onMouseUp",
 ];
 const MARKER_PROPS = [
 	"data",
@@ -46,15 +46,16 @@ const MARKER_PROPS = [
 	"onClick",
 	"onClusterClick",
 	"onClusterMouseEnter",
-	"onClusterMouseLeave"
+	"onClusterMouseLeave",
+	"clusterClickEnabled",
 ];
 
-const connectWithSpiderifierPoint = WrappedComponent => {
+const connectWithSpiderifierPoint = (WrappedComponent) => {
 	class ConnectedWithSpiderifierComponent extends MappedComponent {
 		constructor(props) {
 			super(props);
 			this.state = {
-				overlappedPointsGroup: null
+				overlappedPointsGroup: null,
 			};
 			this.registeredEvents = false;
 		}
@@ -75,7 +76,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 						"onlySpiderifier",
 						"circleFootSeparation",
 						"transformSpiderLeft",
-						"showingLegs"
+						"showingLegs",
 					],
 					_.isEqual
 				) || !_.isEqual(this.state, nextState)
@@ -112,7 +113,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 				if (removedIndex > -1) {
 					const newGroup = [
 						...overlappedPointsGroup.slice(0, removedIndex),
-						...overlappedPointsGroup.slice(removedIndex + 1)
+						...overlappedPointsGroup.slice(removedIndex + 1),
 					];
 					this.setState({ overlappedPointsGroup: newGroup });
 				}
@@ -129,7 +130,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 			if (!onlySpiderifier && _.isArray(this._spiderifieredLocations)) {
 				const { data, radius } = this.props;
 				const map = this.getMapInstance();
-				this._spiderifieredLocations.forEach(lngLat => {
+				this._spiderifieredLocations.forEach((lngLat) => {
 					const points = findPointsWithSameLocation(data, lngLat, map, radius);
 
 					if (!points) {
@@ -166,7 +167,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 				if (onlySpiderifier && groupedPoints.length === 1) {
 					this._updateSpiderifierProps(groupedPoints);
 				} else if (showInitialSpiderifier) {
-					let firstGroup = groupedPoints.find(group => group.length > 1);
+					let firstGroup = groupedPoints.find((group) => group.length > 1);
 
 					if (firstGroup == null) {
 						firstGroup = groupedPoints[0];
@@ -234,9 +235,9 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 		_updateSpiderifierProps(group, coordinates) {
 			this._spiderifieredLocations = [];
 			if (group.length > 0) {
-				const overlappedPointsGroup = group.map(points => {
+				const overlappedPointsGroup = group.map((points) => {
 					if (points.length > 0) {
-						const properties = points.map(feature => feature.properties);
+						const properties = points.map((feature) => feature.properties);
 						let coords = coordinates;
 
 						if (coords == null) {
@@ -244,7 +245,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 						}
 						return {
 							markers: this._processSpiderifyProperties(properties),
-							coordinates: coords
+							coordinates: coords,
 						};
 					}
 
@@ -252,7 +253,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 				});
 
 				const { onShowSpiderifier } = this.props;
-				overlappedPointsGroup.forEach(group => {
+				overlappedPointsGroup.forEach((group) => {
 					const { coordinates, markers } = group;
 
 					this._spiderifieredLocations.push(coordinates);
@@ -262,7 +263,7 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 				});
 
 				this.setState({
-					overlappedPointsGroup
+					overlappedPointsGroup,
 				});
 			}
 		}
@@ -311,12 +312,12 @@ const connectWithSpiderifierPoint = WrappedComponent => {
 		/**
 		 * Allow to customize the spiral component
 		 */
-		spiralComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+		spiralComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 	};
 
 	ConnectedWithSpiderifierComponent.defaultProps = {
 		...WrappedComponent.defaultProps,
-		...ReactMapboxGlSpiderifier.defaultProps
+		...ReactMapboxGlSpiderifier.defaultProps,
 	};
 
 	return ConnectedWithSpiderifierComponent;

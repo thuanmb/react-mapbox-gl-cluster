@@ -1,12 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 import _ from "lodash";
 import MappedComponent from "../../components/MappedComponent";
 import { calculateNextZoomLevel } from "../utils";
 
-const doZoomingOnClick = WrappedComponent => {
+const doZoomingOnClick = (WrappedComponent) => {
 	class ZoomableComponent extends MappedComponent {
 		onClusterClick = (properties, lngLat, event, meta) => {
-			const { onClusterClick } = this.props;
+			const { onClusterClick, clusterClickEnabled } = this.props;
+
+			if (!clusterClickEnabled) {
+				return;
+			}
+
 			const map = this.getMapInstance();
 			const currentZoom = map.getZoom();
 			const maxZoom = map.getMaxZoom();
@@ -26,15 +32,20 @@ const doZoomingOnClick = WrappedComponent => {
 		render() {
 			const props = {
 				...this.props,
-				onClusterClick: this.onClusterClick
+				onClusterClick: this.onClusterClick,
 			};
 
 			return <WrappedComponent {...props} />;
 		}
 	}
 
+	ZoomableComponent.propTypes = {
+		clusterClickEnabled: PropTypes.bool,
+	};
+
 	ZoomableComponent.defaultProps = {
-		...WrappedComponent.defaultProps
+		...WrappedComponent.defaultProps,
+		clusterClickEnabled: true,
 	};
 
 	return ZoomableComponent;

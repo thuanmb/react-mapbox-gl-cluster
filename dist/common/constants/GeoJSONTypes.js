@@ -1,3 +1,9 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ListKeysByType = exports.CollectionTypes = exports.NormalTypes = exports.GeoJSONTypes = void 0;
 var GeoJSONTypes = {
   Point: "Point",
   MultiPoint: "MultiPoint",
@@ -8,10 +14,13 @@ var GeoJSONTypes = {
   GeometryCollection: "GeometryCollection",
   FeatureCollection: "FeatureCollection"
 };
+exports.GeoJSONTypes = GeoJSONTypes;
 var NormalTypes = [GeoJSONTypes.Point, GeoJSONTypes.MultiPoint, GeoJSONTypes.LineString, GeoJSONTypes.MultiLineString, GeoJSONTypes.Polygon, GeoJSONTypes.MultiPolygon];
+exports.NormalTypes = NormalTypes;
 var CollectionTypes = [GeoJSONTypes.GeometryCollection, GeoJSONTypes.FeatureCollection];
+exports.CollectionTypes = CollectionTypes;
 var ListKeysByType = {
   [GeoJSONTypes.GeometryCollection]: "geometries",
   [GeoJSONTypes.FeatureCollection]: "features"
 };
-export { GeoJSONTypes, NormalTypes, CollectionTypes, ListKeysByType };
+exports.ListKeysByType = ListKeysByType;

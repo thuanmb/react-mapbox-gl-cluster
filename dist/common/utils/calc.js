@@ -1,3 +1,10 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateNextZoomLevel = void 0;
+
 /**
  * Calculate the next zoom level base on the current zoom
  * @param {number} currentZoom the current zoom level
@@ -22,4 +29,4 @@ var calculateNextZoomLevel = function calculateNextZoomLevel(currentZoom) {
   return zoom;
 };
 
-export { calculateNextZoomLevel };
+exports.calculateNextZoomLevel = calculateNextZoomLevel;

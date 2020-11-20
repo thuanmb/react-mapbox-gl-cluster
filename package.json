@@ -1,6 +1,6 @@
 {
     "name": "react-mapbox-gl-cluster",
-    "version": "1.10.0",
+    "version": "1.11.0",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "files": ["dist", "README.md"],
@@ -13,19 +13,19 @@
         "@turf/invariant": "^6.1.2",
         "classnames": "^2.2.6",
         "lodash": "^4.17.19",
-        "mapbox-gl": "^1.11.0",
-        "node-sass": "^4.14.1",
+        "mapbox-gl": "^1.13.0",
+        "node-sass": "^5.0.0",
         "prop-types": "^15.7.2",
-        "react-mapbox-gl": "^4.8.3",
-        "react-mapbox-gl-spiderifier": "^1.6.0",
-        "supercluster": "^7.0.0"
+        "react-mapbox-gl": "^5.0.0",
+        "react-mapbox-gl-spiderifier": "^1.9.0",
+        "supercluster": "^7.1.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.8.4",
-        "babel-preset-react-app": "^9.1.2",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "react-scripts": "^3.4.1"
+        "babel-preset-react-app": "^10.0.0",
+        "react": "^16.11.0",
+        "react-dom": "^16.11.0",
+        "react-scripts": "^4.0.0"
     },
     "scripts": {
         "start": "react-scripts start",

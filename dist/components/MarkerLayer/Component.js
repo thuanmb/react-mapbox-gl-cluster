@@ -1,24 +1,43 @@
-import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _inherits from "@babel/runtime/helpers/esm/inherits";
-import _createSuper from "@babel/runtime/helpers/esm/createSuper";
-import React from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import MapboxGl from "mapbox-gl";
-import { checkPropsChange, extractEventHandlers, getExactEventHandlerName } from "../../common/utils";
-import MappedComponent from "../MappedComponent";
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createClass"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inherits"));
+
+var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createSuper"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _lodash = _interopRequireDefault(require("lodash"));
+
+var _mapboxGl = _interopRequireDefault(require("mapbox-gl"));
+
+var _utils = require("../../common/utils");
+
+var _MappedComponent2 = _interopRequireDefault(require("../MappedComponent"));
 
 var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
-  _inherits(MarkerLayer, _MappedComponent);
+  (0, _inherits2.default)(MarkerLayer, _MappedComponent);
 
-  var _super = _createSuper(MarkerLayer);
+  var _super = (0, _createSuper2.default)(MarkerLayer);
 
   function MarkerLayer() {
     var _this;
 
-    _classCallCheck(this, MarkerLayer);
+    (0, _classCallCheck2.default)(this, MarkerLayer);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -46,7 +65,7 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
       return function (e) {
         var handler = _this.props[eventName];
 
-        if (_.isFunction(handler)) {
+        if (_lodash.default.isFunction(handler)) {
           var coordinates = _this.props.coordinates;
 
           var properties = _this.getProperties();
@@ -59,11 +78,11 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
     return _this;
   }
 
-  _createClass(MarkerLayer, [{
+  (0, _createClass2.default)(MarkerLayer, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var node = this.attachChildren(this.props);
-      this.layer = new MapboxGl.Marker(node).setLngLat(this.props.coordinates).addTo(this.getMapInstance());
+      this.layer = new _mapboxGl.default.Marker(node).setLngLat(this.props.coordinates).addTo(this.getMapInstance());
     }
   }, {
     key: "componentDidUpdate",
@@ -72,7 +91,7 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
         this.layer.setLngLat(prevProps.coordinates);
       }
 
-      if (prevProps.children !== this.props.children || checkPropsChange(this.props, prevProps, ["style", "className"])) {
+      if (prevProps.children !== this.props.children || (0, _utils.checkPropsChange)(this.props, prevProps, ["style", "className"])) {
         this.attachChildren(prevProps);
       }
     }
@@ -110,7 +129,8 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
         this._bindEvents();
 
         var content = this.getContent(props);
-        ReactDOM.render(content, this.element);
+
+        _reactDom.default.render(content, this.element);
       }
 
       return this.element;
@@ -124,7 +144,7 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
     key: "getContent",
     value: function getContent(props) {
       var children = props.children;
-      return /*#__PURE__*/React.createElement("div", {
+      return /*#__PURE__*/_react.default.createElement("div", {
         className: "nio-marker-content f-width f-height"
       }, children);
     }
@@ -141,20 +161,20 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
   }, {
     key: "getStyle",
     value: function getStyle(props) {
-      return _.clone(props.style) || {};
+      return _lodash.default.clone(props.style) || {};
     }
   }, {
     key: "_bindEvents",
     value: function _bindEvents() {
       var _this3 = this;
 
-      var events = extractEventHandlers(this.props);
+      var events = (0, _utils.extractEventHandlers)(this.props);
       this.realHandlers = {};
 
-      _.forEach(events, function (handler, name) {
+      _lodash.default.forEach(events, function (handler, name) {
         var realHandler = _this3._generateEventHander(name);
 
-        _this3.element.addEventListener(getExactEventHandlerName(name), realHandler);
+        _this3.element.addEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
 
         _this3.realHandlers[name] = realHandler;
       });
@@ -167,14 +187,14 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
     value: function _unbindEvents() {
       var _this4 = this;
 
-      var events = extractEventHandlers(this.props);
+      var events = (0, _utils.extractEventHandlers)(this.props);
       this.element.removeEventListener("mousedown", this._disableMapDragPan);
       this.element.removeEventListener("mouseup", this._enableMapDragPan);
 
-      _.forEach(events, function (handler, name) {
+      _lodash.default.forEach(events, function (handler, name) {
         var realHandler = _this4.realHandlers[name];
 
-        _this4.element.removeEventListener(getExactEventHandlerName(name), realHandler);
+        _this4.element.removeEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
       });
 
       delete this.realHandlers;
@@ -185,75 +205,75 @@ var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
       return null;
     }
   }]);
-
   return MarkerLayer;
-}(MappedComponent);
+}(_MappedComponent2.default);
 
 MarkerLayer.displayName = "MarkerLayer";
 MarkerLayer.propTypes = {
   /**
    * (required): [number, number] Display the Marker at the given position
    */
-  coordinates: PropTypes.array.isRequired,
+  coordinates: _propTypes.default.array.isRequired,
 
   /**
    * Properties of each Marker, will be passed back when events trigged
    */
-  properties: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.object.isRequired, PropTypes.string.isRequired]),
+  properties: _propTypes.default.oneOfType([_propTypes.default.array.isRequired, _propTypes.default.object.isRequired, _propTypes.default.string.isRequired]),
 
   /**
    * Apply the className to the container of the Marker
    */
-  className: PropTypes.string,
+  className: _propTypes.default.string,
 
   /**
    * Apply style to the Marker container
    */
-  style: PropTypes.object,
+  style: _propTypes.default.object,
 
   /**
    * Child node(s) of the component, to be rendered as custom Marker
    */
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.arrayOf(_propTypes.default.node)]),
 
   /**
    * [Optional] The click event handler
    */
-  onClick: PropTypes.func,
+  onClick: _propTypes.default.func,
 
   /**
    * [Optional] The mouse down event handler
    */
-  onMouseDown: PropTypes.func,
+  onMouseDown: _propTypes.default.func,
 
   /**
    * [Optional] The mouse enter event handler
    */
-  onMouseEnter: PropTypes.func,
+  onMouseEnter: _propTypes.default.func,
 
   /**
    * [Optional] The mouse leave event handler
    */
-  onMouseLeave: PropTypes.func,
+  onMouseLeave: _propTypes.default.func,
 
   /**
    * [Optional] The mouse move event handler
    */
-  onMouseMove: PropTypes.func,
+  onMouseMove: _propTypes.default.func,
 
   /**
    * [Optional] The mouse out event handler
    */
-  onMouseOut: PropTypes.func,
+  onMouseOut: _propTypes.default.func,
 
   /**
    * [Optional] The mouse over event handler
    */
-  onMouseOver: PropTypes.func,
+  onMouseOver: _propTypes.default.func,
 
   /**
    * [Optional] The mouse up event handler
    */
-  onMouseUp: PropTypes.func
+  onMouseUp: _propTypes.default.func
 };
-export default MarkerLayer;
+var _default = MarkerLayer;
+exports.default = _default;

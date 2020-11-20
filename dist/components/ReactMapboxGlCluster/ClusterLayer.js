@@ -1,25 +1,47 @@
-import _objectSpread from "@babel/runtime/helpers/esm/objectSpread2";
-import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "@babel/runtime/helpers/esm/createClass";
-import _inherits from "@babel/runtime/helpers/esm/inherits";
-import _createSuper from "@babel/runtime/helpers/esm/createSuper";
-import React, { PureComponent } from "react";
-import classnames from "classnames";
-import { getCoord } from "@turf/invariant";
-import { Cluster } from "react-mapbox-gl";
-import { extractEventHandlers } from "../../common/utils";
-import { MarkerLayer } from "../MarkerLayer";
-import "./ClusterLayer.css";
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectSpread2"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createClass"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inherits"));
+
+var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createSuper"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _invariant = require("@turf/invariant");
+
+var _reactMapboxGl = require("react-mapbox-gl");
+
+var _utils = require("../../common/utils");
+
+var _MarkerLayer = require("../MarkerLayer");
+
+require("./ClusterLayer.css");
 
 var ClusterLayer = /*#__PURE__*/function (_PureComponent) {
-  _inherits(ClusterLayer, _PureComponent);
+  (0, _inherits2.default)(ClusterLayer, _PureComponent);
 
-  var _super = _createSuper(ClusterLayer);
+  var _super = (0, _createSuper2.default)(ClusterLayer);
 
   function ClusterLayer() {
     var _this;
 
-    _classCallCheck(this, ClusterLayer);
+    (0, _classCallCheck2.default)(this, ClusterLayer);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -29,26 +51,26 @@ var ClusterLayer = /*#__PURE__*/function (_PureComponent) {
 
     _this._clusterMarkerFactory = function (coordinates, pointCount, getLeaves) {
       var clusterClassName = _this.props.clusterClassName;
-      var className = classnames("cluster-layer--cluster", clusterClassName);
+      var className = (0, _classnames.default)("cluster-layer--cluster", clusterClassName);
       var points = getLeaves();
 
       var pointsProps = _this._getPointsProps(points);
 
-      var clusterEventHandlers = extractEventHandlers(_this.props, /^onCluster(.+)$/i);
-      return /*#__PURE__*/React.createElement(MarkerLayer, Object.assign({
+      var clusterEventHandlers = (0, _utils.extractEventHandlers)(_this.props, /^onCluster(.+)$/i);
+      return /*#__PURE__*/_react.default.createElement(_MarkerLayer.MarkerLayer, Object.assign({
         key: coordinates.toString(),
         coordinates: coordinates,
         className: "cluster-layer-container",
         properties: pointsProps
-      }, clusterEventHandlers), /*#__PURE__*/React.createElement("div", {
+      }, clusterEventHandlers), /*#__PURE__*/_react.default.createElement("div", {
         className: className
-      }, /*#__PURE__*/React.createElement("div", null, pointCount)));
+      }, /*#__PURE__*/_react.default.createElement("div", null, pointCount)));
     };
 
     return _this;
   }
 
-  _createClass(ClusterLayer, [{
+  (0, _createClass2.default)(ClusterLayer, [{
     key: "_getClusterProps",
     value: function _getClusterProps() {
       var _this$props = this.props,
@@ -71,8 +93,8 @@ var ClusterLayer = /*#__PURE__*/function (_PureComponent) {
       return points.map(function (point) {
         var feature = point.props["data-feature"];
         var properties = feature.properties;
-        return _objectSpread(_objectSpread({}, properties), {}, {
-          coordinates: getCoord(feature)
+        return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, properties), {}, {
+          coordinates: (0, _invariant.getCoord)(feature)
         });
       });
     }
@@ -87,25 +109,23 @@ var ClusterLayer = /*#__PURE__*/function (_PureComponent) {
           _this$props2$pointSty = _this$props2.pointStyles,
           pointStyles = _this$props2$pointSty === void 0 ? {} : _this$props2$pointSty,
           MarkerComponent = _this$props2.markerComponent;
-      var markerClassName = classnames("cluster-layer--point", pointClassName);
+      var markerClassName = (0, _classnames.default)("cluster-layer--point", pointClassName);
       return data.features.map(function (feature, key) {
         var coordinates = feature.geometry.coordinates,
             properties = feature.properties;
         var style = properties.style;
-        var eventHandlers = extractEventHandlers(_this2.props);
-
-        var cssObject = _objectSpread(_objectSpread({}, pointStyles), style);
-
-        return /*#__PURE__*/React.createElement(MarkerLayer, Object.assign({
+        var eventHandlers = (0, _utils.extractEventHandlers)(_this2.props);
+        var cssObject = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, pointStyles), style);
+        return /*#__PURE__*/_react.default.createElement(_MarkerLayer.MarkerLayer, Object.assign({
           key: "cluster-layer-point".concat(key),
           coordinates: coordinates,
           "data-feature": feature,
           properties: properties
-        }, eventHandlers), MarkerComponent ? /*#__PURE__*/React.createElement(MarkerComponent, {
+        }, eventHandlers), MarkerComponent ? /*#__PURE__*/_react.default.createElement(MarkerComponent, {
           properties: properties,
           className: markerClassName,
           style: cssObject
-        }) : /*#__PURE__*/React.createElement("div", {
+        }) : /*#__PURE__*/_react.default.createElement("div", {
           className: markerClassName,
           style: cssObject
         }));
@@ -116,14 +136,13 @@ var ClusterLayer = /*#__PURE__*/function (_PureComponent) {
     value: function render() {
       var clusterProps = this._getClusterProps();
 
-      return /*#__PURE__*/React.createElement(Cluster, Object.assign({
+      return /*#__PURE__*/_react.default.createElement(_reactMapboxGl.Cluster, Object.assign({
         ClusterMarkerFactory: this._clusterMarkerFactory
       }, clusterProps), this._renderMarkers());
     }
   }]);
-
   return ClusterLayer;
-}(PureComponent);
+}(_react.PureComponent);
 
 ClusterLayer.displayName = "ClusterLayer";
 ClusterLayer.defaultProps = {
@@ -133,4 +152,5 @@ ClusterLayer.defaultProps = {
   extent: 512,
   nodeSize: 64
 };
-export default ClusterLayer;
+var _default = ClusterLayer;
+exports.default = _default;
