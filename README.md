@@ -125,6 +125,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.12.0
+
+- Upgrading packages
+
 ### 1.11.0
 
 - Support `clusterClickEnabled` flag to enable/disable on cluster click event
