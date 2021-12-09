@@ -304,7 +304,7 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
             }
           });
           this.setState({
-            overlappedPointsGroup
+            overlappedPointsGroup: overlappedPointsGroup
           });
         }
       }

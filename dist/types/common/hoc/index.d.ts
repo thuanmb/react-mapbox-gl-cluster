@@ -1,0 +1,1 @@
+export { connectWithSpiderifierPoint, detectLocationHasOverlappedPoints, doZoomingOnClick };

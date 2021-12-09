@@ -60,7 +60,7 @@ var doZoomingOnClick = function doZoomingOnClick(WrappedComponent) {
         var zoom = (0, _utils.calculateNextZoomLevel)(currentZoom, maxZoom);
         map.flyTo({
           center: lngLat,
-          zoom
+          zoom: zoom
         });
 
         _this._handleClick(properties, lngLat, event, meta, onClusterClick);

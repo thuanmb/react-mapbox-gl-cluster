@@ -1,9 +1,16 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ListKeysByType = exports.CollectionTypes = exports.NormalTypes = exports.GeoJSONTypes = void 0;
+exports.NormalTypes = exports.ListKeysByType = exports.GeoJSONTypes = exports.CollectionTypes = void 0;
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/defineProperty"));
+
+var _ListKeysByType;
+
 var GeoJSONTypes = {
   Point: "Point",
   MultiPoint: "MultiPoint",
@@ -19,8 +26,5 @@ var NormalTypes = [GeoJSONTypes.Point, GeoJSONTypes.MultiPoint, GeoJSONTypes.Lin
 exports.NormalTypes = NormalTypes;
 var CollectionTypes = [GeoJSONTypes.GeometryCollection, GeoJSONTypes.FeatureCollection];
 exports.CollectionTypes = CollectionTypes;
-var ListKeysByType = {
-  [GeoJSONTypes.GeometryCollection]: "geometries",
-  [GeoJSONTypes.FeatureCollection]: "features"
-};
+var ListKeysByType = (_ListKeysByType = {}, (0, _defineProperty2.default)(_ListKeysByType, GeoJSONTypes.GeometryCollection, "geometries"), (0, _defineProperty2.default)(_ListKeysByType, GeoJSONTypes.FeatureCollection, "features"), _ListKeysByType);
 exports.ListKeysByType = ListKeysByType;

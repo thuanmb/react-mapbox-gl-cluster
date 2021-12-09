@@ -9,22 +9,16 @@ Object.defineProperty(exports, "calculateNextZoomLevel", {
     return _calc.calculateNextZoomLevel;
   }
 });
+Object.defineProperty(exports, "checkPropsChange", {
+  enumerable: true,
+  get: function get() {
+    return _props.checkPropsChange;
+  }
+});
 Object.defineProperty(exports, "createClusters", {
   enumerable: true,
   get: function get() {
     return _cluster.createClusters;
-  }
-});
-Object.defineProperty(exports, "findPointsWithSameLocation", {
-  enumerable: true,
-  get: function get() {
-    return _cluster.findPointsWithSameLocation;
-  }
-});
-Object.defineProperty(exports, "groupNearestPointsByRadius", {
-  enumerable: true,
-  get: function get() {
-    return _cluster.groupNearestPointsByRadius;
   }
 });
 Object.defineProperty(exports, "extractEventHandlers", {
@@ -33,16 +27,22 @@ Object.defineProperty(exports, "extractEventHandlers", {
     return _event.extractEventHandlers;
   }
 });
+Object.defineProperty(exports, "findPointsWithSameLocation", {
+  enumerable: true,
+  get: function get() {
+    return _cluster.findPointsWithSameLocation;
+  }
+});
 Object.defineProperty(exports, "getExactEventHandlerName", {
   enumerable: true,
   get: function get() {
     return _event.getExactEventHandlerName;
   }
 });
-Object.defineProperty(exports, "checkPropsChange", {
+Object.defineProperty(exports, "groupNearestPointsByRadius", {
   enumerable: true,
   get: function get() {
-    return _props.checkPropsChange;
+    return _cluster.groupNearestPointsByRadius;
   }
 });
 Object.defineProperty(exports, "isReactComponent", {
