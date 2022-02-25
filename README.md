@@ -125,6 +125,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.14.0
+
+- Upgrading packages
+
 ### 1.12.0
 
 - Upgrading packages
