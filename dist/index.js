@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "ReactMapboxGlCluster", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _ReactMapboxGlCluster.default;
   }
 });

@@ -125,6 +125,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.15.0
+
+- Upgrading packages
+
 ### 1.14.0
 
 - Upgrading packages
@@ -212,3 +216,22 @@ class App extends Component {
 ### 0.1.7
 
 - Fix JS error when click on a marker
+
+## Development
+
+### Starting the server in local
+- Adding the `.env` file
+- Adding the key `REACT_APP_MAPBOX_GL_TOKEN` into the `.env` file
+- Starting the server by: `yarn start`
+
+## Upgrading dependencies
+- Upgrading the dependencies
+```
+yarn upgrade-interactive --latest
+```
+- Test if the app works after upgrading: `yarn start`
+- Build the package: `yarn build`
+- Increasing the package version in the `package.json`
+- Adding the release note
+- Push the change into Github
+- Publish the package into npmjs: `npm publish`

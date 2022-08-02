@@ -7,14 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createClass"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createSuper"));
-
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
@@ -27,186 +19,152 @@ var _mapboxGl = _interopRequireDefault(require("mapbox-gl"));
 
 var _utils = require("../../common/utils");
 
-var _MappedComponent2 = _interopRequireDefault(require("../MappedComponent"));
+var _MappedComponent = _interopRequireDefault(require("../MappedComponent"));
 
-var MarkerLayer = /*#__PURE__*/function (_MappedComponent) {
-  (0, _inherits2.default)(MarkerLayer, _MappedComponent);
+class MarkerLayer extends _MappedComponent.default {
+  constructor() {
+    super(...arguments);
 
-  var _super = (0, _createSuper2.default)(MarkerLayer);
-
-  function MarkerLayer() {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, MarkerLayer);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _this._disableMapDragPan = function () {
-      var map = _this.getMapInstance();
+    this._disableMapDragPan = () => {
+      const map = this.getMapInstance();
 
       if (map) {
         map.dragPan.disable();
       }
     };
 
-    _this._enableMapDragPan = function () {
-      var map = _this.getMapInstance();
+    this._enableMapDragPan = () => {
+      const map = this.getMapInstance();
 
       if (map) {
         map.dragPan.enable();
       }
     };
 
-    _this._generateEventHander = function (eventName) {
-      return function (e) {
-        var handler = _this.props[eventName];
+    this._generateEventHander = eventName => e => {
+      const handler = this.props[eventName];
 
-        if (_lodash.default.isFunction(handler)) {
-          var coordinates = _this.props.coordinates;
-
-          var properties = _this.getProperties();
-
-          handler(properties, coordinates, _this.getOffset(), e);
-        }
-      };
+      if (_lodash.default.isFunction(handler)) {
+        const {
+          coordinates
+        } = this.props;
+        const properties = this.getProperties();
+        handler(properties, coordinates, this.getOffset(), e);
+      }
     };
-
-    return _this;
   }
 
-  (0, _createClass2.default)(MarkerLayer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var node = this.attachChildren(this.props);
-      this.layer = new _mapboxGl.default.Marker(node).setLngLat(this.props.coordinates).addTo(this.getMapInstance());
+  componentDidMount() {
+    const node = this.attachChildren(this.props);
+    this.layer = new _mapboxGl.default.Marker(node).setLngLat(this.props.coordinates).addTo(this.getMapInstance());
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.coordinates !== this.props.coordinates) {
+      this.layer.setLngLat(prevProps.coordinates);
     }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (prevProps.coordinates !== this.props.coordinates) {
-        this.layer.setLngLat(prevProps.coordinates);
+
+    if (prevProps.children !== this.props.children || (0, _utils.checkPropsChange)(this.props, prevProps, ["style", "className"])) {
+      this.attachChildren(prevProps);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this.layer) {
+      return;
+    }
+
+    this.layer.remove();
+    delete this.layer;
+  }
+
+  attachChildren() {
+    let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+    const {
+      children
+    } = props;
+
+    if (children) {
+      if (!this.element) {
+        this.element = document.createElement("div");
+      } else {
+        this._unbindEvents();
       }
 
-      if (prevProps.children !== this.props.children || (0, _utils.checkPropsChange)(this.props, prevProps, ["style", "className"])) {
-        this.attachChildren(prevProps);
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      if (!this.layer) {
-        return;
-      }
-
-      this.layer.remove();
-      delete this.layer;
-    }
-  }, {
-    key: "attachChildren",
-    value: function attachChildren() {
-      var _this2 = this;
-
-      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-      var children = props.children;
-
-      if (children) {
-        if (!this.element) {
-          this.element = document.createElement("div");
-        } else {
-          this._unbindEvents();
-        }
-
-        var style = this.getStyle(this.props);
-        this.element.className = this.getContainerClassName(props);
-        Object.keys(style).forEach(function (s) {
-          _this2.element.style[s] = style[s];
-        });
-
-        this._bindEvents();
-
-        var content = this.getContent(props);
-
-        _reactDom.default.render(content, this.element);
-      }
-
-      return this.element;
-    }
-  }, {
-    key: "getContainerClassName",
-    value: function getContainerClassName(props) {
-      return "mapboxgl-marker ".concat(props.className);
-    }
-  }, {
-    key: "getContent",
-    value: function getContent(props) {
-      var children = props.children;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "nio-marker-content f-width f-height"
-      }, children);
-    }
-  }, {
-    key: "getProperties",
-    value: function getProperties() {
-      return this.props.properties;
-    }
-  }, {
-    key: "getOffset",
-    value: function getOffset() {
-      return [0, 0];
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle(props) {
-      return _lodash.default.clone(props.style) || {};
-    }
-  }, {
-    key: "_bindEvents",
-    value: function _bindEvents() {
-      var _this3 = this;
-
-      var events = (0, _utils.extractEventHandlers)(this.props);
-      this.realHandlers = {};
-
-      _lodash.default.forEach(events, function (handler, name) {
-        var realHandler = _this3._generateEventHander(name);
-
-        _this3.element.addEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
-
-        _this3.realHandlers[name] = realHandler;
+      const style = this.getStyle(this.props);
+      this.element.className = this.getContainerClassName(props);
+      Object.keys(style).forEach(s => {
+        this.element.style[s] = style[s];
       });
 
-      this.element.addEventListener("mousedown", this._disableMapDragPan);
-      this.element.addEventListener("mouseup", this._enableMapDragPan);
+      this._bindEvents();
+
+      const content = this.getContent(props);
+
+      _reactDom.default.render(content, this.element);
     }
-  }, {
-    key: "_unbindEvents",
-    value: function _unbindEvents() {
-      var _this4 = this;
 
-      var events = (0, _utils.extractEventHandlers)(this.props);
-      this.element.removeEventListener("mousedown", this._disableMapDragPan);
-      this.element.removeEventListener("mouseup", this._enableMapDragPan);
+    return this.element;
+  }
 
-      _lodash.default.forEach(events, function (handler, name) {
-        var realHandler = _this4.realHandlers[name];
+  getContainerClassName(props) {
+    return "mapboxgl-marker ".concat(props.className);
+  }
 
-        _this4.element.removeEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
-      });
+  getContent(props) {
+    const {
+      children
+    } = props;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "nio-marker-content f-width f-height"
+    }, children);
+  }
 
-      delete this.realHandlers;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return null;
-    }
-  }]);
-  return MarkerLayer;
-}(_MappedComponent2.default);
+  getProperties() {
+    return this.props.properties;
+  }
+
+  getOffset() {
+    return [0, 0];
+  }
+
+  getStyle(props) {
+    return _lodash.default.clone(props.style) || {};
+  }
+
+  _bindEvents() {
+    const events = (0, _utils.extractEventHandlers)(this.props);
+    this.realHandlers = {};
+
+    _lodash.default.forEach(events, (handler, name) => {
+      const realHandler = this._generateEventHander(name);
+
+      this.element.addEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
+      this.realHandlers[name] = realHandler;
+    });
+
+    this.element.addEventListener("mousedown", this._disableMapDragPan);
+    this.element.addEventListener("mouseup", this._enableMapDragPan);
+  }
+
+  _unbindEvents() {
+    const events = (0, _utils.extractEventHandlers)(this.props);
+    this.element.removeEventListener("mousedown", this._disableMapDragPan);
+    this.element.removeEventListener("mouseup", this._enableMapDragPan);
+
+    _lodash.default.forEach(events, (handler, name) => {
+      const realHandler = this.realHandlers[name];
+      this.element.removeEventListener((0, _utils.getExactEventHandlerName)(name), realHandler);
+    });
+
+    delete this.realHandlers;
+  }
+
+  render() {
+    return null;
+  }
+
+}
 
 MarkerLayer.displayName = "MarkerLayer";
 MarkerLayer.propTypes = {

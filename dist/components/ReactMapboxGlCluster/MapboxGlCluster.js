@@ -11,8 +11,8 @@ var _hoc = require("../../common/hoc");
 
 var _ClusterLayer = _interopRequireDefault(require("./ClusterLayer"));
 
-var ClusterLayerWithOverlappedPoints = (0, _hoc.detectLocationHasOverlappedPoints)(_ClusterLayer.default);
-var ZoomableClusterLayer = (0, _hoc.doZoomingOnClick)(ClusterLayerWithOverlappedPoints);
-var MapboxGlCluster = (0, _hoc.connectWithSpiderifierPoint)(ZoomableClusterLayer);
+const ClusterLayerWithOverlappedPoints = (0, _hoc.detectLocationHasOverlappedPoints)(_ClusterLayer.default);
+const ZoomableClusterLayer = (0, _hoc.doZoomingOnClick)(ClusterLayerWithOverlappedPoints);
+const MapboxGlCluster = (0, _hoc.connectWithSpiderifierPoint)(ZoomableClusterLayer);
 var _default = MapboxGlCluster;
 exports.default = _default;

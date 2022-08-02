@@ -17,13 +17,11 @@ var _mapboxGl = require("mapbox-gl");
 
 var _GeoJSONTypes = require("../constants/GeoJSONTypes");
 
-var RADIUS_TO_EXTENDS = 200;
+const RADIUS_TO_EXTENDS = 200;
 
-var checkCollectionGeoJSON = function checkCollectionGeoJSON(data) {
-  return _GeoJSONTypes.CollectionTypes.indexOf(data.type) !== -1;
-};
+const checkCollectionGeoJSON = data => _GeoJSONTypes.CollectionTypes.indexOf(data.type) !== -1;
 
-var createBoundsFromCoordinates = function createBoundsFromCoordinates(coordinates, bounds) {
+const createBoundsFromCoordinates = (coordinates, bounds) => {
   if (bounds == null) {
     return new _mapboxGl.LngLatBounds(coordinates, coordinates);
   }
@@ -31,18 +29,18 @@ var createBoundsFromCoordinates = function createBoundsFromCoordinates(coordinat
   return bounds.extend(coordinates);
 };
 
-var extendBounds = function extendBounds(boundary) {
-  var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
-  var boundObj = new _mapboxGl.LngLatBounds(boundary);
-  var ne = boundObj.getNorthEast();
-  var neBound = ne.toBounds(radius / 2);
-  var sw = boundObj.getSouthWest();
-  var swBound = sw.toBounds(radius / 2);
+const extendBounds = function (boundary) {
+  let radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+  const boundObj = new _mapboxGl.LngLatBounds(boundary);
+  const ne = boundObj.getNorthEast();
+  const neBound = ne.toBounds(radius / 2);
+  const sw = boundObj.getSouthWest();
+  const swBound = sw.toBounds(radius / 2);
   return _lodash.default.flatten([swBound.getSouthWest().toArray(), neBound.getNorthEast().toArray()]);
 };
 
-var flattenCoordinates = function flattenCoordinates(coordinates, positionType) {
-  var depth;
+const flattenCoordinates = (coordinates, positionType) => {
+  let depth;
 
   switch (positionType) {
     case _GeoJSONTypes.GeoJSONTypes.MultiPoint:
@@ -71,8 +69,8 @@ var flattenCoordinates = function flattenCoordinates(coordinates, positionType) 
   return _lodash.default.flattenDepth(coordinates, depth);
 };
 
-var getCoordinateForPosition = function getCoordinateForPosition(position) {
-  var geoJSONType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _GeoJSONTypes.GeoJSONTypes.FeatureCollection;
+const getCoordinateForPosition = function (position) {
+  let geoJSONType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _GeoJSONTypes.GeoJSONTypes.FeatureCollection;
 
   if (geoJSONType === _GeoJSONTypes.GeoJSONTypes.FeatureCollection) {
     return position.geometry.coordinates;
@@ -81,13 +79,15 @@ var getCoordinateForPosition = function getCoordinateForPosition(position) {
   return position.coordinates;
 };
 
-var getFeatureList = function getFeatureList(geoJSON) {
-  var type = geoJSON.type;
-  var key = _GeoJSONTypes.ListKeysByType[type];
+const getFeatureList = geoJSON => {
+  const {
+    type
+  } = geoJSON;
+  const key = _GeoJSONTypes.ListKeysByType[type];
   return geoJSON[key];
 };
 
-var getTypeForPosition = function getTypeForPosition(position, geoJSONType) {
+const getTypeForPosition = (position, geoJSONType) => {
   if (geoJSONType === _GeoJSONTypes.GeoJSONTypes.FeatureCollection) {
     return position.geometry.type;
   }
@@ -95,9 +95,7 @@ var getTypeForPosition = function getTypeForPosition(position, geoJSONType) {
   return position.type;
 };
 
-var roundCoords = function roundCoords(coords) {
-  return [_lodash.default.round(coords[0], 4), _lodash.default.round(coords[1], 4)];
-};
+const roundCoords = coords => [_lodash.default.round(coords[0], 4), _lodash.default.round(coords[1], 4)];
 /**
  * Calculate the boundary of a geojson
  * @param {object} data a geojson in any format
@@ -106,15 +104,17 @@ var roundCoords = function roundCoords(coords) {
  */
 
 
-var calculateBoundary = function calculateBoundary(data) {
-  var totalBounds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var type = data.type;
+const calculateBoundary = function (data) {
+  let totalBounds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  const {
+    type
+  } = data;
 
   if (checkCollectionGeoJSON(data)) {
-    var features = getFeatureList(data);
-    features.forEach(function (feature) {
-      var coordinates = getCoordinateForPosition(feature, type);
-      var featureType = getTypeForPosition(feature, type);
+    const features = getFeatureList(data);
+    features.forEach(feature => {
+      let coordinates = getCoordinateForPosition(feature, type);
+      let featureType = getTypeForPosition(feature, type);
       coordinates = flattenCoordinates(coordinates, featureType);
 
       if (!_lodash.default.isArray(coordinates)) {
@@ -132,7 +132,7 @@ var calculateBoundary = function calculateBoundary(data) {
     return totalBounds;
   }
 
-  var coordinates = (0, _invariant.getCoord)(data);
+  const coordinates = (0, _invariant.getCoord)(data);
   return createBoundsFromCoordinates(coordinates, totalBounds);
 };
 /**
@@ -144,9 +144,9 @@ var calculateBoundary = function calculateBoundary(data) {
  */
 
 
-var createClusters = function createClusters(data, mapBox) {
-  var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 60;
-  var zoom = arguments.length > 3 ? arguments[3] : undefined;
+const createClusters = function (data, mapBox) {
+  let radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 60;
+  let zoom = arguments.length > 3 ? arguments[3] : undefined;
 
   if (!data || !data.features || !_lodash.default.isArray(data.features)) {
     throw new Error("Data cannot be empty");
@@ -156,25 +156,25 @@ var createClusters = function createClusters(data, mapBox) {
     throw new Error("Mapbox instance must be provided");
   }
 
-  var superC = new _supercluster.default({
-    radius: radius,
+  const superC = new _supercluster.default({
+    radius,
     maxZoom: mapBox.getMaxZoom()
   });
-  var featureList = getFeatureList(data);
+  const featureList = getFeatureList(data);
   superC.load(featureList);
 
   if (!zoom) {
     zoom = mapBox.getZoom();
   }
 
-  var boundary = _lodash.default.isEmpty(featureList) ? [0, 0, 0, 0] : _lodash.default.flatten(calculateBoundary(data).toArray()); // in case of all points at the same location,
+  let boundary = _lodash.default.isEmpty(featureList) ? [0, 0, 0, 0] : _lodash.default.flatten(calculateBoundary(data).toArray()); // in case of all points at the same location,
   // extends its coords by 200 meters radius to make superC work.
 
   boundary = extendBounds(boundary, RADIUS_TO_EXTENDS);
-  var clusters = featureList.length > 1 ? superC.getClusters(boundary, Math.round(zoom)) : featureList;
+  const clusters = featureList.length > 1 ? superC.getClusters(boundary, Math.round(zoom)) : featureList;
   return {
-    superC: superC,
-    clusters: clusters
+    superC,
+    clusters
   };
 };
 /**
@@ -191,9 +191,9 @@ var createClusters = function createClusters(data, mapBox) {
 
 exports.createClusters = createClusters;
 
-var findPointsWithSameLocation = function findPointsWithSameLocation(data, lngLat, mapBox) {
-  var radius = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 5;
-  var zoom = arguments.length > 4 ? arguments[4] : undefined;
+const findPointsWithSameLocation = function (data, lngLat, mapBox) {
+  let radius = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 5;
+  let zoom = arguments.length > 4 ? arguments[4] : undefined;
 
   if (!data || !data.features || !_lodash.default.isArray(data.features)) {
     throw new Error("Data cannot be empty");
@@ -207,19 +207,18 @@ var findPointsWithSameLocation = function findPointsWithSameLocation(data, lngLa
     throw new Error("Mapbox instance must be provided");
   }
 
-  var _createClusters = createClusters(data, mapBox, radius, zoom),
-      clusters = _createClusters.clusters,
-      superC = _createClusters.superC;
-
-  var clusterAtLngLat = clusters.find(function (cluster) {
-    return _lodash.default.isEqual(roundCoords(cluster.geometry.coordinates), roundCoords(lngLat));
-  });
+  const {
+    clusters,
+    superC
+  } = createClusters(data, mapBox, radius, zoom);
+  const clusterAtLngLat = clusters.find(cluster => _lodash.default.isEqual(roundCoords(cluster.geometry.coordinates), roundCoords(lngLat)));
 
   if (clusterAtLngLat) {
-    var _clusterAtLngLat$prop = clusterAtLngLat.properties,
-        cluster = _clusterAtLngLat$prop.cluster,
-        cluster_id = _clusterAtLngLat$prop.cluster_id,
-        point_count = _clusterAtLngLat$prop.point_count;
+    const {
+      cluster,
+      cluster_id,
+      point_count
+    } = clusterAtLngLat.properties;
 
     if (cluster && point_count > 1) {
       try {
@@ -243,8 +242,8 @@ var findPointsWithSameLocation = function findPointsWithSameLocation(data, lngLa
 
 exports.findPointsWithSameLocation = findPointsWithSameLocation;
 
-var groupNearestPointsByRadius = function groupNearestPointsByRadius(data, mapBox) {
-  var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 60;
+const groupNearestPointsByRadius = function (data, mapBox) {
+  let radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 60;
 
   if (!data || !data.features || !_lodash.default.isArray(data.features)) {
     throw new Error("Data cannot be empty");
@@ -254,16 +253,16 @@ var groupNearestPointsByRadius = function groupNearestPointsByRadius(data, mapBo
     throw new Error("Mapbox instance must be provided");
   }
 
-  var zoom = mapBox.getMaxZoom() - 2;
-
-  var _createClusters2 = createClusters(data, mapBox, radius, zoom),
-      clusters = _createClusters2.clusters,
-      superC = _createClusters2.superC;
-
-  clusters = clusters.map(function (cluster) {
-    var _cluster$properties = cluster.properties,
-        isCluster = _cluster$properties.cluster,
-        cluster_id = _cluster$properties.cluster_id;
+  const zoom = mapBox.getMaxZoom() - 2;
+  let {
+    clusters,
+    superC
+  } = createClusters(data, mapBox, radius, zoom);
+  clusters = clusters.map(cluster => {
+    const {
+      cluster: isCluster,
+      cluster_id
+    } = cluster.properties;
 
     if (isCluster) {
       try {

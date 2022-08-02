@@ -9,17 +9,15 @@ exports.getExactEventHandlerName = exports.extractEventHandlers = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
-var EVENT_PREFIX = /^on(.+)$/i;
+const EVENT_PREFIX = /^on(.+)$/i;
 
-var extractEventHandlers = function extractEventHandlers(props) {
-  var eventPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : EVENT_PREFIX;
-  return _lodash.default.reduce(Object.keys(props), function (res, prop) {
-    var cb = props[prop];
+const extractEventHandlers = function (props) {
+  let eventPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : EVENT_PREFIX;
+  return _lodash.default.reduce(Object.keys(props), (res, prop) => {
+    const cb = props[prop];
 
     if (eventPrefix.test(prop) && _lodash.default.isFunction(cb)) {
-      var key = prop.replace(eventPrefix, function (match, p) {
-        return "on".concat(p);
-      });
+      const key = prop.replace(eventPrefix, (match, p) => "on".concat(p));
       res[key] = cb;
     }
 
@@ -29,7 +27,7 @@ var extractEventHandlers = function extractEventHandlers(props) {
 
 exports.extractEventHandlers = extractEventHandlers;
 
-var getExactEventHandlerName = function getExactEventHandlerName(event) {
+const getExactEventHandlerName = event => {
   if (!_lodash.default.isString(event)) {
     return event;
   }

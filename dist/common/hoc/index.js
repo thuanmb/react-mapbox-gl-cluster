@@ -7,19 +7,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "connectWithSpiderifierPoint", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _connectWithSpiderifierPoint.default;
   }
 });
 Object.defineProperty(exports, "detectLocationHasOverlappedPoints", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _detectLocationHasOverlappedPoints.default;
   }
 });
 Object.defineProperty(exports, "doZoomingOnClick", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _doZoomingOnClick.default;
   }
 });

@@ -7,18 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectSpread2"));
-
-var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/toConsumableArray"));
-
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createClass"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/createSuper"));
-
 var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
@@ -33,293 +21,280 @@ var _invariant = require("@turf/invariant");
 
 var _ClusterOptions = require("../constants/ClusterOptions");
 
-var _MappedComponent2 = _interopRequireDefault(require("../../components/MappedComponent"));
+var _MappedComponent = _interopRequireDefault(require("../../components/MappedComponent"));
 
 require("./spiderifier.css");
 
-var SPIDERIFIER_PROPS = ["coordinates", "circleSpiralSwitchover", "circleFootSeparation", "spiralFootSeparation", "spiralLengthStart", "spiralLengthFactor", "animate", "animationSpeed", "transformSpiderLeft", "transformSpiderTop", "showingLegs", "onClick", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp"];
-var MARKER_PROPS = ["data", "radius", "minZoom", "maxZoom", "extent", "nodeSize", "pointClassName", "pointStyles", "clusterClassName", "clusterClassName", "markerComponent", "onMouseLeave", "onClick", "onClusterClick", "onClusterMouseEnter", "onClusterMouseLeave", "clusterClickEnabled"];
+const SPIDERIFIER_PROPS = ["coordinates", "circleSpiralSwitchover", "circleFootSeparation", "spiralFootSeparation", "spiralLengthStart", "spiralLengthFactor", "animate", "animationSpeed", "transformSpiderLeft", "transformSpiderTop", "showingLegs", "onClick", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp"];
+const MARKER_PROPS = ["data", "radius", "minZoom", "maxZoom", "extent", "nodeSize", "pointClassName", "pointStyles", "clusterClassName", "clusterClassName", "markerComponent", "onMouseLeave", "onClick", "onClusterClick", "onClusterMouseEnter", "onClusterMouseLeave", "clusterClickEnabled"];
 
-var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedComponent) {
-  var ConnectedWithSpiderifierComponent = /*#__PURE__*/function (_MappedComponent) {
-    (0, _inherits2.default)(ConnectedWithSpiderifierComponent, _MappedComponent);
+const connectWithSpiderifierPoint = WrappedComponent => {
+  class ConnectedWithSpiderifierComponent extends _MappedComponent.default {
+    constructor(props) {
+      super(props);
 
-    var _super = (0, _createSuper2.default)(ConnectedWithSpiderifierComponent);
-
-    function ConnectedWithSpiderifierComponent(props) {
-      var _this;
-
-      (0, _classCallCheck2.default)(this, ConnectedWithSpiderifierComponent);
-      _this = _super.call(this, props);
-
-      _this.onClickOverlappedPoints = function (points, coordinates) {
-        _this._updateSpiderifierProps([points], coordinates);
+      this.onClickOverlappedPoints = (points, coordinates) => {
+        this._updateSpiderifierProps([points], coordinates);
       };
 
-      _this.onMapChange = function () {
-        var onlySpiderifier = _this.props.onlySpiderifier;
+      this.onMapChange = () => {
+        const {
+          onlySpiderifier
+        } = this.props;
 
-        if (!onlySpiderifier && _lodash.default.isArray(_this._spiderifieredLocations)) {
-          var _this$props = _this.props,
-              data = _this$props.data,
-              radius = _this$props.radius;
+        if (!onlySpiderifier && _lodash.default.isArray(this._spiderifieredLocations)) {
+          const {
+            data,
+            radius
+          } = this.props;
+          const map = this.getMapInstance();
 
-          var map = _this.getMapInstance();
-
-          _this._spiderifieredLocations.forEach(function (lngLat) {
-            var points = (0, _utils.findPointsWithSameLocation)(data, lngLat, map, radius);
+          this._spiderifieredLocations.forEach(lngLat => {
+            const points = (0, _utils.findPointsWithSameLocation)(data, lngLat, map, radius);
 
             if (!points) {
-              _this.onSpiderifierRemoved(lngLat);
+              this.onSpiderifierRemoved(lngLat);
             }
           });
         }
       };
 
-      _this.state = {
+      this.state = {
         overlappedPointsGroup: null
       };
-      _this.registeredEvents = false;
-      return _this;
+      this.registeredEvents = false;
     }
 
-    (0, _createClass2.default)(ConnectedWithSpiderifierComponent, [{
-      key: "componentDidUpdate",
-      value: function componentDidUpdate(prevProps) {
-        this._checkAndUpdatePoints(prevProps);
+    componentDidUpdate(prevProps) {
+      this._checkAndUpdatePoints(prevProps);
 
-        this.bindEvents();
+      this.bindEvents();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return (0, _utils.checkPropsChange)(this.props, nextProps, ["data", "showInitialSpiderifier", "onlySpiderifier", "circleFootSeparation", "transformSpiderLeft", "showingLegs"], _lodash.default.isEqual) || !_lodash.default.isEqual(this.state, nextState);
+    }
+
+    componentWillUnmount() {
+      this.unbindEvents();
+    }
+
+    bindEvents() {
+      const map = this.getMapInstance();
+
+      if (map && !this.registeredEvents) {
+        map.on("zoomend", this.onMapChange);
+        this.registeredEvents = true;
       }
-    }, {
-      key: "shouldComponentUpdate",
-      value: function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _utils.checkPropsChange)(this.props, nextProps, ["data", "showInitialSpiderifier", "onlySpiderifier", "circleFootSeparation", "transformSpiderLeft", "showingLegs"], _lodash.default.isEqual) || !_lodash.default.isEqual(this.state, nextState);
+    }
+
+    unbindEvents() {
+      const map = this.getMapInstance();
+
+      if (map) {
+        map.off("zoomend", this.onMapChange);
       }
-    }, {
-      key: "componentWillUnmount",
-      value: function componentWillUnmount() {
-        this.unbindEvents();
-      }
-    }, {
-      key: "bindEvents",
-      value: function bindEvents() {
-        var map = this.getMapInstance();
+    }
 
-        if (map && !this.registeredEvents) {
-          map.on("zoomend", this.onMapChange);
-          this.registeredEvents = true;
-        }
-      }
-    }, {
-      key: "unbindEvents",
-      value: function unbindEvents() {
-        var map = this.getMapInstance();
+    onSpiderifierRemoved(lngLat) {
+      const {
+        overlappedPointsGroup
+      } = this.state;
 
-        if (map) {
-          map.off("zoomend", this.onMapChange);
-        }
-      }
-    }, {
-      key: "onSpiderifierRemoved",
-      value: function onSpiderifierRemoved(lngLat) {
-        var overlappedPointsGroup = this.state.overlappedPointsGroup;
+      if (_lodash.default.isArray(overlappedPointsGroup)) {
+        const removedIndex = overlappedPointsGroup.findIndex(_ref => {
+          let {
+            coordinates
+          } = _ref;
+          return _lodash.default.isEqual(coordinates, lngLat);
+        });
 
-        if (_lodash.default.isArray(overlappedPointsGroup)) {
-          var removedIndex = overlappedPointsGroup.findIndex(function (_ref) {
-            var coordinates = _ref.coordinates;
-            return _lodash.default.isEqual(coordinates, lngLat);
-          });
-
-          if (removedIndex > -1) {
-            var newGroup = [].concat((0, _toConsumableArray2.default)(overlappedPointsGroup.slice(0, removedIndex)), (0, _toConsumableArray2.default)(overlappedPointsGroup.slice(removedIndex + 1)));
-            this.setState({
-              overlappedPointsGroup: newGroup
-            });
-          }
-        }
-
-        var onSpiderifierRemoved = this.props.onSpiderifierRemoved;
-
-        if (_lodash.default.isFunction(onSpiderifierRemoved)) {
-          onSpiderifierRemoved(lngLat);
-        }
-      }
-    }, {
-      key: "_checkAndUpdatePoints",
-      value: function _checkAndUpdatePoints(prevProps) {
-        if ((0, _utils.checkPropsChange)(this.props, prevProps, ["data", "showInitialSpiderifier", "onlySpiderifier"], _lodash.default.isEqual)) {
-          this._updatePoints();
-        }
-      }
-    }, {
-      key: "_getComponentProps",
-      value: function _getComponentProps(keys) {
-        return _lodash.default.pick(this.props, keys);
-      }
-    }, {
-      key: "_getWrappedComponentProps",
-      value: function _getWrappedComponentProps() {
-        return this._getComponentProps(MARKER_PROPS);
-      }
-    }, {
-      key: "_getSpiderifierComponentProps",
-      value: function _getSpiderifierComponentProps() {
-        return this._getComponentProps(SPIDERIFIER_PROPS);
-      }
-    }, {
-      key: "_groupNearestPoint",
-      value: function _groupNearestPoint(props) {
-        var data = props.data,
-            showInitialSpiderifier = props.showInitialSpiderifier,
-            onlySpiderifier = props.onlySpiderifier;
-        var map = this.getMapInstance();
-        var groupedPoints = (0, _utils.groupNearestPointsByRadius)(data, map, _ClusterOptions.ClusterOptions.NearestPointsRadius);
-
-        if (groupedPoints.length > 0) {
-          if (onlySpiderifier && groupedPoints.length === 1) {
-            this._updateSpiderifierProps(groupedPoints);
-          } else if (showInitialSpiderifier) {
-            var firstGroup = groupedPoints.find(function (group) {
-              return group.length > 1;
-            });
-
-            if (firstGroup == null) {
-              firstGroup = groupedPoints[0];
-            }
-
-            this._updateSpiderifierProps([firstGroup]);
-          }
-        }
-      }
-    }, {
-      key: "_processSpiderifyProperties",
-      value: function _processSpiderifyProperties(props) {
-        var spiderifyPropsProcessor = this.props.spiderifyPropsProcessor;
-
-        if (_lodash.default.isFunction(spiderifyPropsProcessor)) {
-          return spiderifyPropsProcessor(props);
-        }
-
-        return props;
-      }
-    }, {
-      key: "_renderSpiderifierContent",
-      value: function _renderSpiderifierContent(key, properties) {
-        var SpiralComponent = this.props.spiralComponent;
-
-        if (SpiralComponent) {
-          return /*#__PURE__*/_react.default.createElement(SpiralComponent, {
-            key: key,
-            properties: properties
+        if (removedIndex > -1) {
+          const newGroup = [...overlappedPointsGroup.slice(0, removedIndex), ...overlappedPointsGroup.slice(removedIndex + 1)];
+          this.setState({
+            overlappedPointsGroup: newGroup
           });
         }
+      }
 
-        return /*#__PURE__*/_react.default.createElement("div", {
-          className: "spiderifier-marker-content",
+      const {
+        onSpiderifierRemoved
+      } = this.props;
+
+      if (_lodash.default.isFunction(onSpiderifierRemoved)) {
+        onSpiderifierRemoved(lngLat);
+      }
+    }
+
+    _checkAndUpdatePoints(prevProps) {
+      if ((0, _utils.checkPropsChange)(this.props, prevProps, ["data", "showInitialSpiderifier", "onlySpiderifier"], _lodash.default.isEqual)) {
+        this._updatePoints();
+      }
+    }
+
+    _getComponentProps(keys) {
+      return _lodash.default.pick(this.props, keys);
+    }
+
+    _getWrappedComponentProps() {
+      return this._getComponentProps(MARKER_PROPS);
+    }
+
+    _getSpiderifierComponentProps() {
+      return this._getComponentProps(SPIDERIFIER_PROPS);
+    }
+
+    _groupNearestPoint(props) {
+      const {
+        data,
+        showInitialSpiderifier,
+        onlySpiderifier
+      } = props;
+      const map = this.getMapInstance();
+      const groupedPoints = (0, _utils.groupNearestPointsByRadius)(data, map, _ClusterOptions.ClusterOptions.NearestPointsRadius);
+
+      if (groupedPoints.length > 0) {
+        if (onlySpiderifier && groupedPoints.length === 1) {
+          this._updateSpiderifierProps(groupedPoints);
+        } else if (showInitialSpiderifier) {
+          let firstGroup = groupedPoints.find(group => group.length > 1);
+
+          if (firstGroup == null) {
+            firstGroup = groupedPoints[0];
+          }
+
+          this._updateSpiderifierProps([firstGroup]);
+        }
+      }
+    }
+
+    _processSpiderifyProperties(props) {
+      const {
+        spiderifyPropsProcessor
+      } = this.props;
+
+      if (_lodash.default.isFunction(spiderifyPropsProcessor)) {
+        return spiderifyPropsProcessor(props);
+      }
+
+      return props;
+    }
+
+    _renderSpiderifierContent(key, properties) {
+      const {
+        spiralComponent: SpiralComponent
+      } = this.props;
+
+      if (SpiralComponent) {
+        return /*#__PURE__*/_react.default.createElement(SpiralComponent, {
           key: key,
           properties: properties
-        }, /*#__PURE__*/_react.default.createElement("div", null, properties.label));
+        });
       }
-    }, {
-      key: "_renderSpiderifier",
-      value: function _renderSpiderifier() {
-        var _this2 = this;
 
-        var overlappedPointsGroup = this.state.overlappedPointsGroup;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "spiderifier-marker-content",
+        key: key,
+        properties: properties
+      }, /*#__PURE__*/_react.default.createElement("div", null, properties.label));
+    }
 
-        if (overlappedPointsGroup && overlappedPointsGroup.length > 0) {
-          var spiderifierComponentProps = this._getSpiderifierComponentProps();
+    _renderSpiderifier() {
+      const {
+        overlappedPointsGroup
+      } = this.state;
 
-          return overlappedPointsGroup.map(function (overlappedPoints, index) {
-            var coordinates = overlappedPoints.coordinates,
-                markers = overlappedPoints.markers;
-            return /*#__PURE__*/_react.default.createElement(_reactMapboxGlSpiderifier.ReactMapboxGlSpiderifier, Object.assign({
-              key: index
-            }, spiderifierComponentProps, {
-              coordinates: coordinates
-            }), markers.map(function (marker, index) {
-              return _this2._renderSpiderifierContent(index, marker);
-            }));
-          });
-        }
+      if (overlappedPointsGroup && overlappedPointsGroup.length > 0) {
+        const spiderifierComponentProps = this._getSpiderifierComponentProps();
 
-        return null;
+        return overlappedPointsGroup.map((overlappedPoints, index) => {
+          const {
+            coordinates,
+            markers
+          } = overlappedPoints;
+          return /*#__PURE__*/_react.default.createElement(_reactMapboxGlSpiderifier.ReactMapboxGlSpiderifier, Object.assign({
+            key: index
+          }, spiderifierComponentProps, {
+            coordinates: coordinates
+          }), markers.map((marker, index) => this._renderSpiderifierContent(index, marker)));
+        });
       }
-    }, {
-      key: "_shouldRenderClusterLayer",
-      value: function _shouldRenderClusterLayer() {
-        var _this$props2 = this.props,
-            onlySpiderifier = _this$props2.onlySpiderifier,
-            overlappedPointsGroup = _this$props2.overlappedPointsGroup;
-        return !onlySpiderifier || !overlappedPointsGroup || overlappedPointsGroup.length > 1;
+
+      return null;
+    }
+
+    _shouldRenderClusterLayer() {
+      const {
+        onlySpiderifier,
+        overlappedPointsGroup
+      } = this.props;
+      return !onlySpiderifier || !overlappedPointsGroup || overlappedPointsGroup.length > 1;
+    }
+
+    _updatePoints() {
+      let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+      const {
+        data,
+        showInitialSpiderifier,
+        onlySpiderifier
+      } = props;
+
+      if (data != null && (showInitialSpiderifier || onlySpiderifier)) {
+        this._groupNearestPoint(props);
       }
-    }, {
-      key: "_updatePoints",
-      value: function _updatePoints() {
-        var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-        var data = props.data,
-            showInitialSpiderifier = props.showInitialSpiderifier,
-            onlySpiderifier = props.onlySpiderifier;
+    }
 
-        if (data != null && (showInitialSpiderifier || onlySpiderifier)) {
-          this._groupNearestPoint(props);
-        }
-      }
-    }, {
-      key: "_updateSpiderifierProps",
-      value: function _updateSpiderifierProps(group, coordinates) {
-        var _this3 = this;
+    _updateSpiderifierProps(group, coordinates) {
+      this._spiderifieredLocations = [];
 
-        this._spiderifieredLocations = [];
+      if (group.length > 0) {
+        const overlappedPointsGroup = group.map(points => {
+          if (points.length > 0) {
+            const properties = points.map(feature => feature.properties);
+            let coords = coordinates;
 
-        if (group.length > 0) {
-          var overlappedPointsGroup = group.map(function (points) {
-            if (points.length > 0) {
-              var properties = points.map(function (feature) {
-                return feature.properties;
-              });
-              var coords = coordinates;
-
-              if (coords == null) {
-                coords = (0, _invariant.getCoord)(points[0]);
-              }
-
-              return {
-                markers: _this3._processSpiderifyProperties(properties),
-                coordinates: coords
-              };
+            if (coords == null) {
+              coords = (0, _invariant.getCoord)(points[0]);
             }
 
-            return null;
-          });
-          var onShowSpiderifier = this.props.onShowSpiderifier;
-          overlappedPointsGroup.forEach(function (group) {
-            var coordinates = group.coordinates,
-                markers = group.markers;
+            return {
+              markers: this._processSpiderifyProperties(properties),
+              coordinates: coords
+            };
+          }
 
-            _this3._spiderifieredLocations.push(coordinates);
+          return null;
+        });
+        const {
+          onShowSpiderifier
+        } = this.props;
+        overlappedPointsGroup.forEach(group => {
+          const {
+            coordinates,
+            markers
+          } = group;
 
-            if (_lodash.default.isFunction(onShowSpiderifier)) {
-              onShowSpiderifier(coordinates, markers);
-            }
-          });
-          this.setState({
-            overlappedPointsGroup: overlappedPointsGroup
-          });
-        }
+          this._spiderifieredLocations.push(coordinates);
+
+          if (_lodash.default.isFunction(onShowSpiderifier)) {
+            onShowSpiderifier(coordinates, markers);
+          }
+        });
+        this.setState({
+          overlappedPointsGroup
+        });
       }
-    }, {
-      key: "render",
-      value: function render() {
-        var wrappedComponentProps = this._getWrappedComponentProps();
+    }
 
-        return /*#__PURE__*/_react.default.createElement("div", null, this._shouldRenderClusterLayer() && /*#__PURE__*/_react.default.createElement(WrappedComponent, Object.assign({}, wrappedComponentProps, {
-          onClickOverlappedPoints: this.onClickOverlappedPoints
-        })), this._renderSpiderifier());
-      }
-    }]);
-    return ConnectedWithSpiderifierComponent;
-  }(_MappedComponent2.default);
+    render() {
+      const wrappedComponentProps = this._getWrappedComponentProps();
+
+      return /*#__PURE__*/_react.default.createElement("div", null, this._shouldRenderClusterLayer() && /*#__PURE__*/_react.default.createElement(WrappedComponent, Object.assign({}, wrappedComponentProps, {
+        onClickOverlappedPoints: this.onClickOverlappedPoints
+      })), this._renderSpiderifier());
+    }
+
+  }
 
   ConnectedWithSpiderifierComponent.propTypes = {
     /**
@@ -353,7 +328,9 @@ var connectWithSpiderifierPoint = function connectWithSpiderifierPoint(WrappedCo
      */
     spiralComponent: _propTypes.default.oneOfType([_propTypes.default.element, _propTypes.default.func])
   };
-  ConnectedWithSpiderifierComponent.defaultProps = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, WrappedComponent.defaultProps), _reactMapboxGlSpiderifier.ReactMapboxGlSpiderifier.defaultProps);
+  ConnectedWithSpiderifierComponent.defaultProps = { ...WrappedComponent.defaultProps,
+    ..._reactMapboxGlSpiderifier.ReactMapboxGlSpiderifier.defaultProps
+  };
   return ConnectedWithSpiderifierComponent;
 };
 

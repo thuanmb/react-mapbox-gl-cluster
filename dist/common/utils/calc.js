@@ -11,9 +11,9 @@ exports.calculateNextZoomLevel = void 0;
  * @param {number} maxZoom the max zoom level of the map
  * @param {number} extraZoomLevels how many extra level more for each zoom
  */
-var calculateNextZoomLevel = function calculateNextZoomLevel(currentZoom) {
-  var maxZoom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-  var extraZoomLevels = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+const calculateNextZoomLevel = function (currentZoom) {
+  let maxZoom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+  let extraZoomLevels = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
 
   if (currentZoom >= 14 && currentZoom < maxZoom - 2) {
     return maxZoom - 2;
@@ -23,9 +23,9 @@ var calculateNextZoomLevel = function calculateNextZoomLevel(currentZoom) {
     return maxZoom;
   }
 
-  var delta = maxZoom - currentZoom;
-  var percentage = delta / maxZoom;
-  var zoom = currentZoom + extraZoomLevels * percentage + extraZoomLevels * Math.pow(percentage, 2) + extraZoomLevels * Math.pow(percentage, 3);
+  const delta = maxZoom - currentZoom;
+  const percentage = delta / maxZoom;
+  const zoom = currentZoom + extraZoomLevels * percentage + extraZoomLevels * Math.pow(percentage, 2) + extraZoomLevels * Math.pow(percentage, 3);
   return zoom;
 };
 

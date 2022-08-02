@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "MarkerLayer", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _Component.default;
   }
 });
