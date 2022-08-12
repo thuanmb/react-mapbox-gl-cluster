@@ -125,6 +125,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.16.0
+
+- Fix TS does not compile
+
 ### 1.15.0
 
 - Upgrading packages
