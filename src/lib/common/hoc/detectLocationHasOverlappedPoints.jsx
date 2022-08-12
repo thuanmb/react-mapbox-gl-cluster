@@ -6,6 +6,9 @@ import { findPointsWithSameLocation } from "../utils";
 import { ClusterOptions } from "../constants/ClusterOptions";
 import MappedComponent from "../../components/MappedComponent";
 
+/**
+ * @type Class
+ */
 const detectLocationHasOverlappedPoints = WrappedComponent => {
 	class LayerWithOverlappedPointComponent extends MappedComponent {
 		onClick = (properties, lngLat, event, meta) => {

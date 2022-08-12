@@ -50,6 +50,9 @@ const MARKER_PROPS = [
 	"clusterClickEnabled",
 ];
 
+/**
+ * @type Class
+ */
 const connectWithSpiderifierPoint = (WrappedComponent) => {
 	class ConnectedWithSpiderifierComponent extends MappedComponent {
 		constructor(props) {

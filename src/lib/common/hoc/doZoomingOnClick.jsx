@@ -4,6 +4,9 @@ import _ from "lodash";
 import MappedComponent from "../../components/MappedComponent";
 import { calculateNextZoomLevel } from "../utils";
 
+/**
+ * @type Class
+ */
 const doZoomingOnClick = (WrappedComponent) => {
 	class ZoomableComponent extends MappedComponent {
 		onClusterClick = (properties, lngLat, event, meta) => {

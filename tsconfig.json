@@ -4,6 +4,9 @@
     "src/lib/**/*.js"
   ],
   "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "declaration": true,
     "outDir": "dist/types"
   }
 }
