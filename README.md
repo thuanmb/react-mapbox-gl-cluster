@@ -95,10 +95,35 @@ class App extends Component {
   [Optional] The class name of each cluster.
 
 - `spiralComponent (element)`
-  [Optional] The custom component for the spiral. For example:
+  [Optional] The custom component for the spiral. Example usage:
+  ```
+  const CustomSpiralComponent = ({properties, ...restProps}) => {
+    const onClick = e => {
+      console.log(`Receive event onClick in spiral at properties: ${JSON.stringify(properties)}`);
+    };
+    return <div className="spiderifier-marker-content" onClick={onClick}></div>;
+  };
+
+  ...
+  <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
+    <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} spiralComponent={CustomSpiralComponent} />
+  </Map>
+  ```
 
 - `markerComponent (element)`
-  [Optional] The custom component for marker
+  [Optional] The custom component for marker. Example usage:
+  ```
+  const CustomeMarkerComponent = ({properties, className, cssObject}) => {
+    const onClick = e => {
+      console.log(`Receive event onClick in marker at properties: ${JSON.stringify(properties)}`);
+    };
+    return <div className={className} style={cssObject} onClick={onClick} />;
+  };
+  ...
+  <Map {...mapProps} onStyleLoad={this.onStyleLoad}>
+    <ReactMapboxGlCluster data={data} {...this.getEventHandlers()} markerComponent={CustomMarkerComponent} />
+  </Map>
+  ```
 
 - clusterClickEnabled (bool)
   [Optional] Enable/disable zoom on cluster click
