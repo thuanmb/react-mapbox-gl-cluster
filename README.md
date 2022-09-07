@@ -125,6 +125,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.18.0
+
+- Removing node-sass dependency
+
 ### 1.17.0
 
 - Fix TS compiling does not

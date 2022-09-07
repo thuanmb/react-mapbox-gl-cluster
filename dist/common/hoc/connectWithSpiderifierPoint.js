@@ -27,6 +27,9 @@ require("./spiderifier.css");
 
 const SPIDERIFIER_PROPS = ["coordinates", "circleSpiralSwitchover", "circleFootSeparation", "spiralFootSeparation", "spiralLengthStart", "spiralLengthFactor", "animate", "animationSpeed", "transformSpiderLeft", "transformSpiderTop", "showingLegs", "onClick", "onMouseDown", "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp"];
 const MARKER_PROPS = ["data", "radius", "minZoom", "maxZoom", "extent", "nodeSize", "pointClassName", "pointStyles", "clusterClassName", "clusterClassName", "markerComponent", "onMouseLeave", "onClick", "onClusterClick", "onClusterMouseEnter", "onClusterMouseLeave", "clusterClickEnabled"];
+/**
+ * @type Class
+ */
 
 const connectWithSpiderifierPoint = WrappedComponent => {
   class ConnectedWithSpiderifierComponent extends _MappedComponent.default {

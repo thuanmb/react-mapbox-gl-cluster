@@ -1,6 +1,6 @@
 {
   "name": "react-mapbox-gl-cluster",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "module": "dist/index.js",

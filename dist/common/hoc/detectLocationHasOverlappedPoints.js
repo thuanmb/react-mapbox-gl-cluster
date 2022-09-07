@@ -21,6 +21,9 @@ var _ClusterOptions = require("../constants/ClusterOptions");
 
 var _MappedComponent = _interopRequireDefault(require("../../components/MappedComponent"));
 
+/**
+ * @type Class
+ */
 const detectLocationHasOverlappedPoints = WrappedComponent => {
   class LayerWithOverlappedPointComponent extends _MappedComponent.default {
     constructor() {

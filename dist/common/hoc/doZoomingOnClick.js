@@ -17,6 +17,9 @@ var _MappedComponent = _interopRequireDefault(require("../../components/MappedCo
 
 var _utils = require("../utils");
 
+/**
+ * @type Class
+ */
 const doZoomingOnClick = WrappedComponent => {
   class ZoomableComponent extends _MappedComponent.default {
     constructor() {
