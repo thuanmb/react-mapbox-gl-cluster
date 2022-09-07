@@ -1,50 +1,49 @@
 {
-    "name": "react-mapbox-gl-cluster",
-    "version": "1.17.0",
-    "main": "dist/index.js",
-    "types": "dist/types/index.d.ts",
-    "module": "dist/index.js",
-    "files": [
-        "dist",
-        "README.md"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
-    },
-    "dependencies": {
-        "@babel/runtime": "^7.18.9",
-        "@turf/invariant": "^6.5.0",
-        "classnames": "^2.3.1",
-        "lodash": "^4.17.21",
-        "mapbox-gl": "^2.9.2",
-        "node-sass": "^7.0.1",
-        "postcss-normalize": "^10.0.1",
-        "prop-types": "^15.7.2",
-        "react-mapbox-gl": "^5.1.1",
-        "react-mapbox-gl-spiderifier": "^1.11.0",
-        "supercluster": "^7.1.5"
-    },
-    "devDependencies": {
-        "@babel/cli": "^7.18.10",
-        "@tsconfig/create-react-app": "^1.0.2",
-        "babel-preset-react-app": "^10.0.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-scripts": "^5.0.1",
-        "typescript": "^4.7.4"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__ --presets=./babelPresets.js; npx tsc -p tsconfig.json",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": [
-        "defaults",
-        "not ie 11"
-    ]
+  "name": "react-mapbox-gl-cluster",
+  "version": "1.17.0",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thuanmb/react-mapbox-gl-cluster"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.18.9",
+    "@turf/invariant": "^6.5.0",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
+    "mapbox-gl": "^2.9.2",
+    "prop-types": "^15.7.2",
+    "react-mapbox-gl": "^5.1.1",
+    "react-mapbox-gl-spiderifier": "^1.11.0",
+    "supercluster": "^7.1.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@tsconfig/create-react-app": "^1.0.2",
+    "babel-preset-react-app": "^10.0.0",
+    "postcss-normalize": "^10.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__ --presets=./babelPresets.js; npx tsc -p tsconfig.json",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11"
+  ]
 }
