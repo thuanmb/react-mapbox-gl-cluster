@@ -108,7 +108,7 @@ class MarkerLayer extends _MappedComponent.default {
   }
 
   getContainerClassName(props) {
-    return "mapboxgl-marker ".concat(props.className);
+    return `mapboxgl-marker ${props.className}`;
   }
 
   getContent(props) {

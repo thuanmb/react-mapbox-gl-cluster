@@ -3,14 +3,14 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/thuanmb/react-mapbox-gl-cluster/blob/master/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/react-mapbox-gl-cluster.svg)](https://www.npmjs.com/package/react-mapbox-gl-cluster)
 
-The `React` component of cluster layer in `mapbox-gl`.
+The `React` component for the cluster layer in the `mapbox-gl`.
 
 The cluster layer has some build-in actions:
 
-1.  Zoom in when click on a cluster.
-2.  Show spiderifier when clicked on a cluster which contains the points at same location.
+1.  Zoom in when clicking on a cluster.
+2.  Show the spiderifiers when clicking on a cluster which contains the points at same location.
 
-This layer must be rendered inside `react-mapbox-gl` map.
+This layer must be rendered inside `react-mapbox-gl` component.
 
 ## Examples:
 
@@ -63,7 +63,7 @@ class App extends Component {
 }
 ```
 
-## Doc
+## Documentations
 
 #### Properties
 
@@ -149,6 +149,10 @@ class App extends Component {
   [Optional] Handle when user move the mouse leave a cluster
 
 ## ChangeLog:
+
+### 1.19.0
+
+- Upgrading packages
 
 ### 1.18.0
 
@@ -257,14 +261,16 @@ class App extends Component {
 - Adding the key `REACT_APP_MAPBOX_GL_TOKEN` into the `.env` file
 - Starting the server by: `yarn start`
 
-## Upgrading dependencies
+## Upgrading dependencies checklist
 - Upgrading the dependencies
 ```
 yarn upgrade-interactive --latest
 ```
+- Pull the latest code
+- Create a new branch
 - Test if the app works after upgrading: `yarn start`
 - Build the package: `yarn build`
 - Increasing the package version in the `package.json`
-- Adding the release note
+- Adding the release note in the `README`
 - Push the change into Github
 - Publish the package into npmjs: `npm publish`

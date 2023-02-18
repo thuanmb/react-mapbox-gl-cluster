@@ -100,7 +100,7 @@ class ClusterLayer extends _react.PureComponent {
         ...style
       };
       return /*#__PURE__*/_react.default.createElement(_MarkerLayer.MarkerLayer, Object.assign({
-        key: "cluster-layer-point".concat(key),
+        key: `cluster-layer-point${key}`,
         coordinates: coordinates,
         "data-feature": feature,
         properties: properties

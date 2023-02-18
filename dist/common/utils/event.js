@@ -17,7 +17,7 @@ const extractEventHandlers = function (props) {
     const cb = props[prop];
 
     if (eventPrefix.test(prop) && _lodash.default.isFunction(cb)) {
-      const key = prop.replace(eventPrefix, (match, p) => "on".concat(p));
+      const key = prop.replace(eventPrefix, (match, p) => `on${p}`);
       res[key] = cb;
     }
 
