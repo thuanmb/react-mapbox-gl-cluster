@@ -1,4 +1,4 @@
 export namespace ClusterOptions {
-    const NearestPointsRadius: number;
-    const ZoomLevel: number;
+    let NearestPointsRadius: number;
+    let ZoomLevel: number;
 }

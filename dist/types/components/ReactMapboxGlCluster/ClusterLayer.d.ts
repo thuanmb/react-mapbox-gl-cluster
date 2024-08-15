@@ -13,34 +13,34 @@ declare class ClusterLayer {
     render(): any;
 }
 declare namespace ClusterLayer {
-    const displayName: string;
+    let displayName: string;
     namespace propTypes {
-        const data: any;
-        const radius: any;
-        const minZoom: any;
-        const maxZoom: any;
-        const extent: any;
-        const nodeSize: any;
-        const pointClassName: any;
-        const pointStyles: any;
-        const clusterClassName: any;
-        const markerComponent: any;
-        const onMouseLeave: any;
-        const onClick: any;
-        const onClusterClick: any;
-        const onClusterMouseEnter: any;
-        const onClusterMouseLeave: any;
+        let data: any;
+        let radius: any;
+        let minZoom: any;
+        let maxZoom: any;
+        let extent: any;
+        let nodeSize: any;
+        let pointClassName: any;
+        let pointStyles: any;
+        let clusterClassName: any;
+        let markerComponent: any;
+        let onMouseLeave: any;
+        let onClick: any;
+        let onClusterClick: any;
+        let onClusterMouseEnter: any;
+        let onClusterMouseLeave: any;
     }
     namespace defaultProps {
-        const radius_1: number;
+        let radius_1: number;
         export { radius_1 as radius };
-        const minZoom_1: number;
+        let minZoom_1: number;
         export { minZoom_1 as minZoom };
-        const maxZoom_1: number;
+        let maxZoom_1: number;
         export { maxZoom_1 as maxZoom };
-        const extent_1: number;
+        let extent_1: number;
         export { extent_1 as extent };
-        const nodeSize_1: number;
+        let nodeSize_1: number;
         export { nodeSize_1 as nodeSize };
     }
 }

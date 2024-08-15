@@ -1,7 +1,7 @@
 export default MarkerLayer;
 declare class MarkerLayer extends MappedComponent {
     componentDidMount(): void;
-    layer: any;
+    layer: import("mapbox-gl").Marker | undefined;
     componentDidUpdate(prevProps: any, prevState: any): void;
     componentWillUnmount(): void;
     attachChildren(props?: any): HTMLDivElement | undefined;
@@ -20,21 +20,21 @@ declare class MarkerLayer extends MappedComponent {
     render(): null;
 }
 declare namespace MarkerLayer {
-    const displayName: string;
+    let displayName: string;
     namespace propTypes {
-        const coordinates: any;
-        const properties: any;
-        const className: any;
-        const style: any;
-        const children: any;
-        const onClick: any;
-        const onMouseDown: any;
-        const onMouseEnter: any;
-        const onMouseLeave: any;
-        const onMouseMove: any;
-        const onMouseOut: any;
-        const onMouseOver: any;
-        const onMouseUp: any;
+        let coordinates: any;
+        let properties: any;
+        let className: any;
+        let style: any;
+        let children: any;
+        let onClick: any;
+        let onMouseDown: any;
+        let onMouseEnter: any;
+        let onMouseLeave: any;
+        let onMouseMove: any;
+        let onMouseOut: any;
+        let onMouseOver: any;
+        let onMouseUp: any;
     }
 }
 import MappedComponent from "../MappedComponent";
