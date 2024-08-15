@@ -150,6 +150,10 @@ class App extends Component {
 
 ## ChangeLog:
 
+### 1.20.0
+
+- Upgrading packages
+
 ### 1.19.0
 
 - Upgrading packages
